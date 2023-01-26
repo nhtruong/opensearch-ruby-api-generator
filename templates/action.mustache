@@ -1,0 +1,15 @@
+{{license_header}}
+{{rubocop_header}}
+
+module OpenSearch
+  module API
+    {{#namespace}}
+    module {{namespace}}
+      {{>action.module}}
+    end
+    {{/namespace}}
+    {{^namespace}}
+    {{>action.module}}
+    {{/namespace}}
+  end
+end

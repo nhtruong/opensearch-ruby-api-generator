@@ -1,0 +1,6 @@
+require: rubocop-rake
+AllCops:
+  Include:
+    - 'lib/**/*.rb'
+    - 'Rakefile'
+  NewCops: enable
