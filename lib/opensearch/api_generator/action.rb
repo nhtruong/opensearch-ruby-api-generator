@@ -14,7 +14,7 @@ require_relative 'base'
 
 module Opensearch
   module ApiGenerator
-    # Logic To Generate an API Action
+    # Logic To Generate an API Method
     class Action < Base
       self.template_file = './templates/action.mustache'
 
@@ -30,8 +30,20 @@ module Opensearch
         'create'
       end
 
-      def required_arguments
-        [{ arg: :index }, { arg: :id }]
+      def required_args
+        [{ arg: :index }]
+      end
+
+      def path_args
+        [{ arg: :index, listify: true }, { arg: :id }]
+      end
+
+      def listify_query_args
+        [{ arg: :h }]
+      end
+
+      def path
+        '#{_index}/docs/#{_id}'
       end
     end
   end

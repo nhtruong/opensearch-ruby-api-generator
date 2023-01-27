@@ -1,20 +1,31 @@
 module Actions
   {{method_documentation}}
   def {{method_name}}(arguments = {})
-    {{#required_arguments}}
-      raise ArgumentError, "Required argument '{{arg}}' missing" unless arguments[:{{arg}}]
-    {{/required_arguments}}
+    {{#required_args}}
+    raise ArgumentError, "Required argument '{{arg}}' missing" unless arguments[:{{arg}}]
+    {{/required_args}}
 
     arguments = arguments.clone
+
+    {{#path_args}}
+    {{#listify}}
+    _{{arg}} = Utils.__listify(arguments.delete(:{{arg}}))
+    {{/listify}}
+    {{^listify}}
+    _{{arg}} = arguments.delete(:{{arg}})
+    {{/listify}}
+    {{/path_args}}
+
+    path   = "{{path}}"
     headers = arguments.delete(:headers) || {}
-
-    _index = arguments.delete(:index)
-
+    body = arguments.delete(:body)
     method = OpenSearch::API::HTTP_PUT
-    path   = "#{Utils.__listify(_index)}"
     params = Utils.__validate_and_extract_params arguments, ParamsRegistry.get(__method__)
 
-    body = arguments[:body]
+    {{#listify_query_args}}
+    params[:{{arg}}] = Utils.__listify(params[:{{arg}}]) if params[:{{arg}}]
+    {{/listify_query_args}}
+
     perform_request(method, path, params, body, headers).body
   end
 
