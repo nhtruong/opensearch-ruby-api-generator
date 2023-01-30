@@ -11,4 +11,6 @@
 ###############
 
 require './lib/opensearch/api_generator/action'
-puts Opensearch::ApiGenerator::Action.render
+output = Opensearch::ApiGenerator::Action.render
+puts output
+Pathname('./tmp/action.rb').write(output)

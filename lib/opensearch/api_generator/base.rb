@@ -22,8 +22,9 @@ module Opensearch
         Pathname('./templates/license_header.txt').read
       end
 
-      def rubocop_header
-        '# frozen_string_literal: true'
+      def generated_code_warning
+        "# This code was generated from OpenSearch API Spec.\n" \
+          '# Update the code generation logic instead of modifying this file directly.'
       end
     end
   end

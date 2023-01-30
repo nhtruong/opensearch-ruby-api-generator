@@ -30,6 +30,10 @@ module Opensearch
         'create'
       end
 
+      def path
+        '#{_index}/docs/#{_id}'
+      end
+
       def required_args
         [{ arg: :index }]
       end
@@ -38,12 +42,16 @@ module Opensearch
         [{ arg: :index, listify: true }, { arg: :id }]
       end
 
+      def query_args
+        [{ arg: :h }]
+      end
+
       def listify_query_args
         [{ arg: :h }]
       end
 
-      def path
-        '#{_index}/docs/#{_id}'
+      def http_verb
+        'PUT'
       end
     end
   end
