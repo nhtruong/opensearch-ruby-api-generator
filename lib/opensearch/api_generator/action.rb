@@ -11,43 +11,36 @@
 
 require 'openapi3_parser'
 require_relative 'base'
+require_relative 'method_documentation'
+require_relative 'method_arguments'
 
 module Opensearch
   module ApiGenerator
     # Logic To Generate an API Method
     class Action < Base
+      include MethodDocumentation
+      include MethodArguments
+
       self.template_file = './templates/action.mustache'
 
-      def namespace
-        'Indices'
+      attr_reader :operations
+
+      # @param [Array<Openapi3Parser::Node::Operation>] operations
+      def initialize(operations)
+        super
+        @operations = operations
       end
 
-      def method_documentation
-        '# Rdoc documentation'
+      def namespace
+        operations[0]['x-namespace'].camelize
       end
 
       def method_name
-        'create'
+        operations[0]['x-action'].underscore
       end
 
       def path
         '#{_index}/docs/#{_id}'
-      end
-
-      def required_args
-        [{ arg: :index }]
-      end
-
-      def path_args
-        [{ arg: :index, listify: true }, { arg: :id }]
-      end
-
-      def query_args
-        [{ arg: :h }]
-      end
-
-      def listify_query_args
-        [{ arg: :h }]
       end
 
       def http_verb

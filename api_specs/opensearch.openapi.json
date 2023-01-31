@@ -184,6 +184,9 @@
       "get": {
         "description": "Returns information about indices: number of primaries and replicas, document counts, disk size, etc.",
         "operationId": "GetCatIndicesWithIndex",
+        "x-namespace": "cat",
+        "x-action": "indices",
+        "x-action-description": null,
         "parameters": [
           {
             "name": "index",

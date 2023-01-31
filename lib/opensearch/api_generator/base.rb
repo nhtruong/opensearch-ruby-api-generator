@@ -11,6 +11,7 @@
 
 require 'openapi3_parser'
 require 'mustache'
+require 'active_support/all'
 
 module Opensearch
   module ApiGenerator

@@ -13,7 +13,7 @@ require 'openapi3_parser'
 
 module Opensearch
   # Generate API endpoints for OpenSearch Ruby client
-  class ApiGenerator
+  module ApiGenerator
     attr_reader :parser, :output_folder
 
     # @param [string] openapi_spec path to OpenSearch OpenAPI Spec

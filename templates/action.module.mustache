@@ -1,5 +1,9 @@
 module Actions
-  {{method_documentation}}
+  {{method_description}}
+  #
+  {{#method_arguments}}
+  # @option arguments [{{data_type}}] :{{name}} - {{#required}}* Required * {{/required}}{{#deprecated}}DEPRECATED {{/deprecated}}{{#default}}(default: {{default}} {{/default}}{{description}}
+  {{/method_arguments}}
   def {{method_name}}(arguments = {})
     {{#required_args}}
     raise ArgumentError, "Required argument '{{arg}}' missing" unless arguments[:{{arg}}]

@@ -9,12 +9,15 @@
 
 # frozen_string_literal: true
 
-source 'https://rubygems.org'
+module Opensearch
+  module ApiGenerator
+    # Logic to generate Method Documentation for each Action
+    module MethodDocumentation
+      def method_description
+        '# method description'
+      end
+    end
+  end
+end
 
-gem 'rake'
-gem 'rubocop', '~> 1.44', require: false
-gem 'rubocop-rake', require: false
-gem 'openapi3_parser'
-gem 'mustache', '~> 1'
-gem 'awesome_print'
-gem 'activesupport', '~> 7'
+
