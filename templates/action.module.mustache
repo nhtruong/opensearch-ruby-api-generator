@@ -20,7 +20,7 @@ module Actions
     {{/listify}}
     {{/path_args}}
 
-    path    = Utils.__pathify {{{path}}}
+    path    = Utils.__pathify {{{path_components}}}
     headers = arguments.delete(:headers) || {}
     body    = arguments.delete(:body)
     method  = {{{http_verb}}}

@@ -4,3 +4,10 @@ AllCops:
     - 'lib/**/*.rb'
     - 'Rakefile'
   NewCops: enable
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false

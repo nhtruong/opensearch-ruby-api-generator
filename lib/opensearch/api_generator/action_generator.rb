@@ -1,0 +1,86 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# The OpenSearch Contributors require contributions made to
+# this file be licensed under the Apache-2.0 license or a
+# compatible open source license.
+#
+# Modifications Copyright OpenSearch Contributors. See
+# GitHub history for details.
+
+# frozen_string_literal: true
+
+require 'openapi3_parser'
+require_relative 'base_generator'
+require_relative 'method_documentation'
+require_relative 'method_arguments'
+require_relative 'operation'
+
+module Opensearch
+  module ApiGenerator
+    # Logic To Generate an API Action via Mustache
+    class ActionGenerator < BaseGenerator
+      include MethodDocumentation
+      include MethodArguments
+
+      self.template_file = './templates/action.mustache'
+
+      # @param [Array<Opensearch::ApiGenerator::Operation>] operations
+      def initialize(operations)
+        @operations = operations
+        @http_verbs = operations.map(&:http_verb).sort
+        @paths = Set.new(operations.map(&:path))
+        validate
+        super
+      end
+
+      def namespace
+        @operations[0]['x-namespace']&.camelize
+      end
+
+      def method_name
+        @operations[0]['x-action'].underscore
+      end
+
+      def path_components
+        @paths.max_by(&:length).split('/').select(&:present?).map do |component|
+          if component.starts_with? '{'
+            "_#{component[/{(.+)}/, 1]}"
+          else
+            "'#{component}'"
+          end
+        end.join(', ')
+      end
+
+      def http_verb
+        case @http_verbs
+        when %w[get post]
+          'body ? OpenSearch::API::HTTP_POST : OpenSearch::API::HTTP_GET'
+        when %w[post put]
+          "_#{verb_diff.first[/{(.+)}/, 1]} ? OpenSearch::API::HTTP_PUT : OpenSearch::API::HTTP_POST"
+        else
+          "OpenSearch::API::HTTP_#{@http_verbs.first.upcase}"
+        end
+      end
+
+      private
+
+      def validate
+        raise 'Can only combine upto 2 operations into 1 action' if @operations.length > 2
+        return if @operations.length == 1
+
+        case @http_verbs
+        when %w[get post]
+          raise 'Can only combine get/post operations if they share the same path' if @paths.size > 1
+        when %w[post put]
+          raise 'Can only combine put/post operations if their paths differ by 1 argument' if verb_diff.size != 1
+        else
+          raise "Cannot combine #{@http_verbs.join('/')} operations"
+        end
+      end
+
+      def verb_diff
+        @paths.map { |path| Set.new(path.split('/')) }.sort_by(&:size).reverse.reduce(&:difference)
+      end
+    end
+  end
+end

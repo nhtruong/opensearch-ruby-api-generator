@@ -16,7 +16,7 @@ require 'active_support/all'
 module Opensearch
   module ApiGenerator
     # Base Mustache Generator
-    class Base < Mustache
+    class BaseGenerator < Mustache
       self.template_path = './templates'
 
       def license_header

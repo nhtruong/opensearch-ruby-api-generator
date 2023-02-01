@@ -49,5 +49,3 @@ module Opensearch
     end
   end
 end
-
-
