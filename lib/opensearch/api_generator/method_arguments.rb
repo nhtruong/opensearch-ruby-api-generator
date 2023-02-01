@@ -31,6 +31,10 @@ module Opensearch
         sets.reduce(&:intersection).map { |arg| { arg: } }
       end
 
+      def valid_params_constant_name
+        "#{method_name}_PARAMS".upcase
+      end
+
       def listify_query_args
         @operations.map(&:parameters).map(&:to_a).flatten
                    .select { |p| p['in'] == 'query' && p['x-array'] }

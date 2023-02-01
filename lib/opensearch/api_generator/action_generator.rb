@@ -34,11 +34,11 @@ module Opensearch
       end
 
       def namespace
-        @operations[0]['x-namespace']&.camelize
+        @operations.first.namespace&.camelize
       end
 
       def method_name
-        @operations[0]['x-action'].underscore
+        @operations.first.action.underscore
       end
 
       def path_components
