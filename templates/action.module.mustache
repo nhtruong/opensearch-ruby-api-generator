@@ -20,11 +20,11 @@ module Actions
     {{/listify}}
     {{/path_args}}
 
-    path   = "{{path}}"
+    path    = Utils.__pathify {{{path}}}
     headers = arguments.delete(:headers) || {}
-    body = arguments.delete(:body)
-    method = OpenSearch::API::HTTP_{{http_verb}}
-    params = Utils.__validate_and_extract_params arguments, ParamsRegistry.get(__method__)
+    body    = arguments.delete(:body)
+    method  = {{{http_verb}}}
+    params  = Utils.__validate_and_extract_params arguments, ParamsRegistry.get(__method__)
 
     {{#listify_query_args}}
     params[:{{arg}}] = Utils.__listify(params[:{{arg}}]) if params[:{{arg}}]

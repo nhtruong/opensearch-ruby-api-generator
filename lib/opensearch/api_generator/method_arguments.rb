@@ -18,22 +18,32 @@ module Opensearch
       end
 
       def path_args
-        [{ arg: :index, listify: true }, { arg: :id }]
+        @operations.map(&:parameters).map(&:to_a).flatten
+                   .select { |p| p['in'] == 'path' }
+                   .each_with_object({}) { |p, h| h[p['name']] = p }
+                   .map { |name, p| { arg: name, listify: p['x-array'] } }
       end
 
       def query_args
-        [{ arg: :h }]
+        sets = @operations.map do |op|
+          Set.new(op.parameters.select { |p| p['in'] == 'query' }.map(&:name))
+        end
+        sets.reduce(&:intersection).map { |arg| { arg: } }
       end
 
       def listify_query_args
-        [{ arg: :h }]
+        @operations.map(&:parameters).map(&:to_a).flatten
+                   .select { |p| p['in'] == 'query' && p['x-array'] }
+                   .map(&:name).uniq.map { |arg| { arg: } }
       end
 
       private
 
       def _required
-        operations.map do |op|
-          Set.new(op.parameters.select(&:required?).map(&:name))
+        @_required ||= @operations.map do |op|
+          set = Set.new(op.parameters.select(&:required?).map(&:name))
+          set.add('body') if op.request_body&.required?
+          set
         end.reduce(&:intersection)
       end
     end

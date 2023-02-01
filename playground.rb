@@ -6,13 +6,10 @@ generator = Class.new { include Opensearch::ApiGenerator }.new './api_specs/open
 parser = generator.parser
 path_item = parser.paths['/_cat/indices/{index}']
 operation = path_item.get
-# ap operation
 # ap operation.parameters.map(&:to_h)[0..1]
 # ap operation.parameters.map { |x| x.schema.to_h }[0..1]
-
-
 require './lib/opensearch/api_generator/action'
-action = Opensearch::ApiGenerator::Action.new([operation, operation])
+action = Opensearch::ApiGenerator::Action.new('/_cat/indices/{index}', 'get', [operation])
 output = action.render
 puts output
 Pathname('./tmp/action.rb').write(output)

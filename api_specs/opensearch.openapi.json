@@ -191,6 +191,7 @@
           {
             "name": "index",
             "in": "path",
+            "x-array": true,
             "schema": {
               "type": "string",
               "pattern": "^[^+_\\-\\.][^\\\\, /*?\"<>| ,#\\nA-Z]+$"
@@ -245,6 +246,7 @@
           {
             "name": "include_unloaded_segments",
             "in": "query",
+            "x-array": true,
             "schema": {
               "type": "boolean"
             }
@@ -974,6 +976,8 @@
       "put": {
         "description": "Creates index mappings.",
         "operationId": "PutCreateIndex",
+        "x-namespace": null,
+        "x-action": "index",
         "requestBody": {
           "content": {
             "application/json": {

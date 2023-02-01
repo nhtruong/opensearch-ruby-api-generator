@@ -23,28 +23,40 @@ module Opensearch
 
       self.template_file = './templates/action.mustache'
 
-      attr_reader :operations
-
+      # @param [String] path
+      # @param [String] http_verb
       # @param [Array<Openapi3Parser::Node::Operation>] operations
-      def initialize(operations)
-        super
+      def initialize(path, http_verb, operations)
+        @path = path
+        @http_verb = http_verb
         @operations = operations
+        super()
       end
 
       def namespace
-        operations[0]['x-namespace'].camelize
+        @operations[0]['x-namespace']&.camelize
       end
 
       def method_name
-        operations[0]['x-action'].underscore
+        @operations[0]['x-action'].underscore
       end
 
       def path
-        '#{_index}/docs/#{_id}'
+        @path.split('/').select(&:present?).map do |component|
+          if component.starts_with? '{'
+            "_#{component[/{(.+)}/, 1]}"
+          else
+            "'#{component}'"
+          end
+        end.join(', ')
       end
 
       def http_verb
-        'PUT'
+        if @http_verb == 'get-post'
+          'body ? OpenSearch::API::HTTP_POST : OpenSearch::API::HTTP_GET'
+        else
+          "OpenSearch::API::HTTP_#{@http_verb.upcase}"
+        end
       end
     end
   end
