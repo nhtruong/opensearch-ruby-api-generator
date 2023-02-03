@@ -246,7 +246,6 @@
           {
             "name": "include_unloaded_segments",
             "in": "query",
-            "x-array": true,
             "schema": {
               "type": "boolean"
             }

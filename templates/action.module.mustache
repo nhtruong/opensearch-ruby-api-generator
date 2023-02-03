@@ -1,9 +1,9 @@
 module Actions
-  {{valid_params_constant_name}} = Set.new %i[
+  {{valid_params_constant_name}} = Set.new(%i[
     {{#query_args}}
     {{arg}}
     {{/query_args}}
-  ].freeze
+  ]).freeze
 
   {{method_description}}
   #
@@ -26,11 +26,11 @@ module Actions
     {{/listify}}
     {{/path_args}}
 
-    path    = Utils.__pathify {{{path_components}}}
     headers = arguments.delete(:headers) || {}
     body    = arguments.delete(:body)
-    method  = {{{http_verb}}}
     params  = Utils.__validate_and_extract_params arguments, {{valid_params_constant_name}}
+    path    = Utils.__pathify {{{path_components}}}
+    method  = {{{http_verb}}}
 
     {{#listify_query_args}}
     params[:{{arg}}] = Utils.__listify(params[:{{arg}}]) if params[:{{arg}}]

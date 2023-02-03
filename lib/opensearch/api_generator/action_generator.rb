@@ -65,8 +65,8 @@ module Opensearch
       private
 
       def validate
-        raise 'Can only combine upto 2 operations into 1 action' if @operations.length > 2
         return if @operations.length == 1
+        raise 'Can only combine upto 2 operations into 1 action' if @operations.length > 2
 
         case @http_verbs
         when %w[get post]
