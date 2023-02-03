@@ -14,7 +14,31 @@ module Opensearch
     # Logic to generate Method Documentation for each Action
     module MethodDocumentation
       def method_description
-        '# method description'
+        @operations.map { |op| { description: op.description } }
+      end
+
+      def argument_descriptions
+        url_args = @operations.map(&:parameters).map(&:to_a).flatten.index_by(&:name).values.map do |p|
+          {
+            data_type: p.schema.type.capitalize,
+            name: p.name,
+            required: p.name.in?(_required),
+            deprecated: p.schema.deprecated?,
+            default: p.schema.default,
+            description: p.description
+          }
+        end
+
+        body_arg = @operations.map(&:request_body).compact.first&.map do |body|
+          {
+            data_type: :Hash,
+            name: :body,
+            required: 'body'.in?(_required),
+            description: body.description
+          }
+        end || []
+
+        url_args + body_arg
       end
     end
   end

@@ -12,7 +12,7 @@ op1 = Opensearch::ApiGenerator::Operation.new(operation, '/_cat/indices/{index}'
 op2 = Opensearch::ApiGenerator::Operation.new(operation, '/_cat/indices/{index}', 'post')
 
 require './lib/opensearch/api_generator/action_generator'
-action = Opensearch::ApiGenerator::ActionGenerator.new([op1])
+action = Opensearch::ApiGenerator::ActionGenerator.new([op1, op2])
 output = action.render
 puts output
 Pathname('./tmp/action.rb').write(output)

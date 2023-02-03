@@ -5,11 +5,13 @@ module Actions
     {{/query_args}}
   ]).freeze
 
-  {{method_description}}
+  {{#method_description}}
+  # {{{description}}}
+  {{/method_description}}
   #
-  {{#method_arguments}}
+  {{#argument_descriptions}}
   # @option arguments [{{data_type}}] :{{name}} - {{#required}}* Required * {{/required}}{{#deprecated}}DEPRECATED {{/deprecated}}{{#default}}(default: {{default}} {{/default}}{{description}}
-  {{/method_arguments}}
+  {{/argument_descriptions}}
   def {{method_name}}(arguments = {})
     {{#required_args}}
     raise ArgumentError, "Required argument '{{arg}}' missing" unless arguments[:{{arg}}]
