@@ -37,12 +37,12 @@ module Opensearch
         super
       end
 
-      def namespace
-        @operations.first.namespace&.camelize
+      def module_name
+        namespace&.camelize
       end
 
       def method_name
-        @operations.first.action.underscore
+        action.underscore
       end
 
       def url_components

@@ -5,13 +5,13 @@
 
 module OpenSearch
   module API
-    {{#namespace}}
-    module {{namespace}}
+    {{#module_name}}
+    module {{module_name}}
       {{>action.module}}
     end
-    {{/namespace}}
-    {{^namespace}}
+    {{/module_name}}
+    {{^module_name}}
     {{>action.module}}
-    {{/namespace}}
+    {{/module_name}}
   end
 end
