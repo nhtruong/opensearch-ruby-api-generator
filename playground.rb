@@ -1,6 +1,6 @@
-require './lib/opensearch/api_generator'
-require './lib/opensearch/api_generator/operation'
-require './lib/opensearch/api_generator/version'
+require './lib/api_generator'
+require './lib/api_generator/operation'
+require './lib/api_generator/version'
 require 'awesome_print'
 AwesomePrint.irb!
 
@@ -19,5 +19,5 @@ AwesomePrint.irb!
 # Pathname('./poc/action.rb').write(output)
 
 
-generator = Class.new { include Opensearch::ApiGenerator }.new './api_specs/opensearch.openapi.json', './poc', '2.5'
+generator = Class.new { include ApiGenerator }.new './api_specs/opensearch.openapi.json', './poc', '2.5'
 generator.generate
