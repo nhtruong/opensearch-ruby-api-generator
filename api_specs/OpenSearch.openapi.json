@@ -489,7 +489,7 @@
         },
         "/_remotestore/_restore": {
             "post": {
-                "x-namespace": "remotestore.restore",
+                "x-operation-group": "remotestore.restore",
                 "x-version-added": "2.5 ",
                 "description": "Restore one or more indices from a remote backup.",
                 "operationId": "PostRemoteStoreRestore",

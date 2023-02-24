@@ -31,13 +31,13 @@ module Actions
     headers = arguments.delete(:headers) || {}
     body    = arguments.delete(:body)
     params  = Utils.__validate_and_extract_params arguments, {{valid_params_constant_name}}
-    path    = Utils.__pathify {{{path_components}}}
+    url     = Utils.__pathify {{{url_components}}}
     method  = {{{http_verb}}}
 
     {{#listify_query_args}}
     params[:{{arg}}] = Utils.__listify(params[:{{arg}}]) if params[:{{arg}}]
     {{/listify_query_args}}
 
-    perform_request(method, path, params, body, headers).body
+    perform_request(method, url, params, body, headers).body
   end
 end

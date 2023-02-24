@@ -28,7 +28,7 @@ module Opensearch
       def initialize(operations)
         @operations = operations
         @http_verbs = operations.map(&:http_verb).sort
-        @paths = Set.new(operations.map(&:path))
+        @urls = Set.new(operations.map(&:url))
         validate
         super
       end
@@ -41,8 +41,8 @@ module Opensearch
         @operations.first.action.underscore
       end
 
-      def path_components
-        @paths.max_by(&:length).split('/').select(&:present?).map do |component|
+      def url_components
+        @urls.max_by(&:length).split('/').select(&:present?).map do |component|
           if component.starts_with? '{'
             "_#{component[/{(.+)}/, 1]}"
           else

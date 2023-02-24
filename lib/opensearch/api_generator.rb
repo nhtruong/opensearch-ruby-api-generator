@@ -10,10 +10,12 @@
 # frozen_string_literal: true
 
 require 'openapi3_parser'
+require_relative './api_generator/operation'
 
 module Opensearch
   # Generate API endpoints for OpenSearch Ruby client
   module ApiGenerator
+    HTTP_VERBS = %w[get post put patch delete patch options].freeze
     attr_reader :parser, :output_folder
 
     # @param [string] openapi_spec path to OpenSearch OpenAPI Spec
@@ -32,7 +34,12 @@ module Opensearch
     private
 
     def operation_groups
-
+      parser.paths.map do |url, path|
+        path.to_h.slice(*HTTP_VERBS).compact.map do |verb, operation|
+          op = Opensearch::ApiGenerator::Operation.new operation, url, verb
+          op.part_of?(@version) ? op : nil
+        end
+      end.flatten.compact.group_by(&:group)
     end
   end
 end

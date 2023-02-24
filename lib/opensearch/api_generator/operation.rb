@@ -10,22 +10,33 @@
 # frozen_string_literal: true
 
 require 'openapi3_parser/node/operation'
+require_relative 'version'
 
 module Opensearch
   module ApiGenerator
     # Wrapper for Openapi3Parser::Node::Operation that adds extra info
     class Operation < Openapi3Parser::Node::Operation
-      attr_reader :path, :http_verb, :namespace, :action
+      attr_reader :url, :http_verb, :group, :namespace, :action,
+                  :version_added, :version_removed, :version_deprecated
 
       # @param [Openapi3Parser::Node::Operation] operation
-      # @param [String] path
+      # @param [String] url
       # @param [String] http_verb
-      def initialize(operation, path, http_verb)
+      def initialize(operation, url, http_verb)
         super(operation.node_data, operation.node_context)
-        @path = path
+        @url = url
         @http_verb = http_verb
-        @namespace = operation['x-namespace']
-        @action = operation['x-action']
+        @group = operation['x-operation-group'] || ''
+        @action, @namespace = @group.split('.').reverse
+        @version_added = Version.new operation['x-version-added']
+        @version_removed = Version.new operation['x-version-removed']
+        @version_deprecated = Version.new operation['x-version-deprecated']
+      end
+
+      def part_of?(version)
+        return false if version_added.nil? && version_removed.nil?
+        version = Version.new(version)
+        version_added <= version && (version_removed.nil? || version <= version_removed)
       end
     end
   end
