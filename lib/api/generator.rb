@@ -39,9 +39,9 @@ module Api
 
     def operation_groups
       parser.paths.map do |url, path|
-        path.to_h.slice(*HTTP_VERBS).compact.map do |verb, operation|
-          op = Operation.new operation, url, verb
-          op.part_of?(@version) ? op : nil
+        path.to_h.slice(*HTTP_VERBS).compact.map do |verb, operation_spec|
+          operation = Operation.new operation_spec, url, verb
+          operation.part_of?(@version) ? operation : nil
         end
       end.flatten.compact.group_by(&:group)
     end

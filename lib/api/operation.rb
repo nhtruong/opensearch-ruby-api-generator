@@ -18,18 +18,18 @@ module Api
     attr_reader :url, :http_verb, :group, :namespace, :action,
                 :version_added, :version_removed, :version_deprecated
 
-    # @param [Openapi3Parser::Node::Operation] operation
+    # @param [Openapi3Parser::Node::Operation] spec
     # @param [String] url
     # @param [String] http_verb
-    def initialize(operation, url, http_verb)
-      super(operation.node_data, operation.node_context)
+    def initialize(spec, url, http_verb)
+      super(spec.node_data, spec.node_context)
       @url = url
       @http_verb = http_verb
-      @group = operation['x-operation-group'] || ''
+      @group = spec['x-operation-group'] || ''
       @action, @namespace = @group.split('.').reverse
-      @version_added = Version.new operation['x-version-added']
-      @version_removed = Version.new operation['x-version-removed']
-      @version_deprecated = Version.new operation['x-version-deprecated']
+      @version_added = Version.new spec['x-version-added']
+      @version_removed = Version.new spec['x-version-removed']
+      @version_deprecated = Version.new spec['x-version-deprecated']
     end
 
     # @param [string] version OpenSearch Version Number
