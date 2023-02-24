@@ -18,8 +18,8 @@ module Actions
     {{/required_args}}
 
     arguments = arguments.clone
-
     {{#path_args}}
+
     {{#listify}}
     _{{arg}} = Utils.__listify(arguments.delete(:{{arg}}))
     {{/listify}}

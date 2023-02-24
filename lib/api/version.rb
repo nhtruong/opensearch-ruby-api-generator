@@ -11,7 +11,7 @@
 
 require 'openapi3_parser/node/operation'
 
-module ApiGenerator
+module Api
   # OpenSearch Version Number
   class Version
     include Comparable

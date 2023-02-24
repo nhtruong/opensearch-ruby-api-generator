@@ -12,7 +12,7 @@
 require 'openapi3_parser/node/operation'
 require_relative 'version'
 
-module ApiGenerator
+module Api
   # Wrapper for Openapi3Parser::Node::Operation that adds extra info
   class Operation < Openapi3Parser::Node::Operation
     attr_reader :url, :http_verb, :group, :namespace, :action,

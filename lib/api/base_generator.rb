@@ -13,7 +13,7 @@ require 'openapi3_parser'
 require 'mustache'
 require 'active_support/all'
 
-module ApiGenerator
+module Api
   # Base Mustache Generator
   class BaseGenerator < Mustache
     self.template_path = './templates'
