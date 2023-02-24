@@ -29,16 +29,14 @@ module Opensearch
           }
         end
 
-        body_arg = @operations.map(&:request_body).compact.first&.map do |body|
-          {
-            data_type: :Hash,
-            name: :body,
-            required: 'body'.in?(_required),
-            description: body.description
-          }
-        end || []
+        body = @operations.map(&:request_body).find(&:present?)
+        return url_args if body.nil?
 
-        url_args + body_arg
+        body_arg = { data_type: :Hash,
+                     name: :body,
+                     required: 'body'.in?(_required),
+                     description: body.description }
+        url_args + [body_arg]
       end
     end
   end

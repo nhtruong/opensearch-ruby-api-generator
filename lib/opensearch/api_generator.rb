@@ -11,6 +11,7 @@
 
 require 'openapi3_parser'
 require_relative './api_generator/operation'
+require_relative './api_generator/action_generator'
 
 module Opensearch
   # Generate API endpoints for OpenSearch Ruby client
@@ -28,7 +29,10 @@ module Opensearch
     end
 
     def generate
-      operation_groups
+      operation_groups.each_value do |operations|
+        action = Opensearch::ApiGenerator::ActionGenerator.new(operations)
+        puts action.render
+      end
     end
 
     private

@@ -33,6 +33,7 @@ module Opensearch
         @version_deprecated = Version.new operation['x-version-deprecated']
       end
 
+      # @param [string] version OpenSearch Version Number
       def part_of?(version)
         return false if version_added.nil? && version_removed.nil?
         version = Version.new(version)

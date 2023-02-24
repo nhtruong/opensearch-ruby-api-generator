@@ -24,9 +24,13 @@ module Opensearch
 
       self.template_file = './templates/action.mustache'
 
+      attr_reader :namespace, :action
+
       # @param [Array<Opensearch::ApiGenerator::Operation>] operations
       def initialize(operations)
         @operations = operations
+        @namespace = @operations.first.namespace
+        @action = @operations.first.action
         @http_verbs = operations.map(&:http_verb).sort
         @urls = Set.new(operations.map(&:url))
         validate

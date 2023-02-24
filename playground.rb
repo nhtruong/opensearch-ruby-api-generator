@@ -20,4 +20,4 @@ AwesomePrint.irb!
 
 
 generator = Class.new { include Opensearch::ApiGenerator }.new './api_specs/opensearch.openapi.json', './poc', '2.5'
-ap generator.generate
+generator.generate
