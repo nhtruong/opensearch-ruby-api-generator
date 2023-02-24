@@ -18,15 +18,21 @@ module Opensearch
 
     # @param [string] openapi_spec path to OpenSearch OpenAPI Spec
     # @param [string] output_folder folder to output generated files
-    def initialize(openapi_spec, output_folder)
+    # @param [string] version target OpenSearch version (e.g. 2.5)
+    def initialize(openapi_spec, output_folder, version)
       @parser = Openapi3Parser.load_file openapi_spec
       @output_folder = output_folder
+      @version = version
     end
 
     def generate
-      parser.paths.each {}
+      operation_groups
     end
 
-    def generate_one(path, operation); end
+    private
+
+    def operation_groups
+
+    end
   end
 end
