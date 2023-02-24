@@ -30,7 +30,7 @@ module Api
 
     def generate
       operation_groups.each_value do |operations|
-        action = Api::Action::Generator.new(operations)
+        action = Action::Generator.new(operations)
         puts action.render
       end
     end
@@ -40,7 +40,7 @@ module Api
     def operation_groups
       parser.paths.map do |url, path|
         path.to_h.slice(*HTTP_VERBS).compact.map do |verb, operation|
-          op = Api::Operation.new operation, url, verb
+          op = Operation.new operation, url, verb
           op.part_of?(@version) ? op : nil
         end
       end.flatten.compact.group_by(&:group)
