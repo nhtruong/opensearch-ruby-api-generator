@@ -20,6 +20,7 @@ module Opensearch
 
       # @param [string] version_str
       def initialize(version_str)
+        @version_str = version_str
         @numbers = version_str&.split('.')&.map(&:to_i)
       end
 
@@ -30,6 +31,10 @@ module Opensearch
           return -1 if self_ < other_
         end
         0
+      end
+
+      def to_s
+        @version_str
       end
 
       def nil?
