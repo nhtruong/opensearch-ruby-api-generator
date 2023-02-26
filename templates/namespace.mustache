@@ -1,0 +1,22 @@
+{{license_header}}
+{{generated_code_warning}}
+
+# frozen_string_literal: true
+
+module OpenSearch
+  module API
+    module {{module_name}}
+      module Actions; end
+
+      # Client for the "{{namespace}}" namespace (includes the {{module_name}}::Actions methods)
+      class {{client_name}}
+        include Common::Client, Common::Client::Base, {{module_name}}::Actions
+      end
+
+      # Proxy method for {{client_name}}, available in the receiving object
+      def {{namespace}}
+        @{{namespace}} ||= {{client_name}}.new(self)
+      end
+    end
+  end
+end

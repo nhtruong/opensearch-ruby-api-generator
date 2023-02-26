@@ -12,6 +12,7 @@
 require 'openapi3_parser'
 require_relative 'operation'
 require_relative './action/generator'
+require_relative './namespace/generator'
 
 module Api
   # Generate API endpoints for OpenSearch Ruby client
@@ -35,6 +36,9 @@ module Api
         action = Action::Generator.new(operations)
         output = create_folder actions_folder, action.namespace
         output.join("#{action.action}.rb").write action.render
+
+        namespace = Namespace::Generator.new(action.namespace)
+        namespace_folder.join("#{action.namespace}.rb").write(namespace.render)
       end
     end
 
