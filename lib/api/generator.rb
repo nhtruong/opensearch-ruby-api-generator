@@ -17,21 +17,24 @@ module Api
   # Generate API endpoints for OpenSearch Ruby client
   class Generator
     HTTP_VERBS = %w[get post put patch delete patch options].freeze
-    attr_reader :parser, :output_folder
+    attr_reader :parser, :gem_folder, :opensearch_folder, :api_folder, :actions_folder, :namespace_folder
 
     # @param [string] openapi_spec path to OpenSearch OpenAPI Spec
-    # @param [string] output_folder folder to output generated files
+    # @param [string] @gem_folder location of the API Gem folder
     # @param [string] version target OpenSearch version (e.g. 2.5)
-    def initialize(openapi_spec, output_folder, version)
+    def initialize(openapi_spec, gem_folder, version)
       @parser = Openapi3Parser.load_file openapi_spec
-      @output_folder = Pathname output_folder
+      @gem_folder = Pathname gem_folder
       @version = version
+
+      create_folder_structure
     end
 
     def generate
       operation_groups.each_value do |operations|
         action = Action::Generator.new(operations)
-        puts action.render
+        output = create_folder actions_folder, action.namespace
+        output.join("#{action.action}.rb").write action.render
       end
     end
 
@@ -46,8 +49,16 @@ module Api
       end.flatten.compact.group_by(&:group)
     end
 
-    def create_folder(name)
-      folder = @output_folder.join name
+    def create_folder_structure
+      lib_folder = create_folder gem_folder, :lib
+      @opensearch_folder = create_folder lib_folder, :opensearch
+      @api_folder = create_folder opensearch_folder, :api
+      @actions_folder = create_folder api_folder, :actions
+      @namespace_folder = create_folder api_folder, :namespace
+    end
+
+    def create_folder(parent, folder_name)
+      folder = parent.join folder_name.to_s
       folder.mkdir unless folder.exist?
       folder
     end

@@ -18,7 +18,7 @@ module Api
     attr_reader :url, :http_verb, :group, :namespace, :action,
                 :version_added, :version_removed, :version_deprecated
 
-    # @param [Openapi3Parser::Node::Operation] spec
+    # @param [Openapi3Parser::Node::Operation] spec Operation Spec
     # @param [String] url
     # @param [String] http_verb
     def initialize(spec, url, http_verb)
