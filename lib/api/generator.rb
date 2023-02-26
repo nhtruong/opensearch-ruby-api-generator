@@ -13,11 +13,25 @@ require 'openapi3_parser'
 require_relative 'operation'
 require_relative './action/generator'
 require_relative './namespace/generator'
+require_relative './index/generator'
 
 module Api
   # Generate API endpoints for OpenSearch Ruby client
   class Generator
     HTTP_VERBS = %w[get post put patch delete patch options].freeze
+    EXISTING_NAMESPACES = Set.new(%w[
+                                    clusters
+                                    nodes
+                                    indices
+                                    ingest
+                                    snapshot
+                                    tasks
+                                    cat
+                                    remote
+                                    dangling_indices
+                                    features
+                                    shutdown
+                                  ]).freeze
     attr_reader :parser, :gem_folder, :opensearch_folder, :api_folder, :actions_folder, :namespace_folder
 
     # @param [string] openapi_spec path to OpenSearch OpenAPI Spec
@@ -32,14 +46,21 @@ module Api
     end
 
     def generate
+      namespaces = EXISTING_NAMESPACES.dup
+
       operation_groups.each_value do |operations|
         action = Action::Generator.new(operations)
         output = create_folder actions_folder, action.namespace
         output.join("#{action.action}.rb").write action.render
 
-        namespace = Namespace::Generator.new(action.namespace)
-        namespace_folder.join("#{action.namespace}.rb").write(namespace.render)
+        unless namespaces.include? action.namespace
+          namespace = Namespace::Generator.new(action.namespace)
+          namespace_folder.join("#{action.namespace}.rb").write(namespace.render)
+        end
+        namespaces.add action.namespace
       end
+
+      api_folder.join('api.rb').write Index::Generator.new(namespaces).render
     end
 
     private

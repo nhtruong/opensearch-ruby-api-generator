@@ -19,10 +19,9 @@ module Api
   module Action
     # Logic To Generate an API Action via Mustache
     class Generator < BaseGenerator
+      self.template_file = './templates/action.mustache'
       include MethodDocumentation
       include MethodArguments
-
-      self.template_file = './templates/action.mustache'
 
       attr_reader :namespace, :action
 
