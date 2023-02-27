@@ -26,11 +26,11 @@ module Api
       end
 
       def module_name
-        namespace&.camelize
+        namespace.camelize
       end
 
       def client_name
-        "#{namespace&.camelize}Client"
+        "#{namespace.camelize}Client"
       end
     end
   end

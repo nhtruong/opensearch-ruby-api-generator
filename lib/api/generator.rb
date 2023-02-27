@@ -32,7 +32,7 @@ module Api
                                     features
                                     shutdown
                                   ]).freeze
-    attr_reader :parser, :gem_folder, :opensearch_folder, :api_folder, :actions_folder, :namespace_folder
+    attr_reader :parser
 
     # @param [string] openapi_spec path to OpenSearch OpenAPI Spec
     # @param [string] @gem_folder location of the API Gem folder
@@ -49,18 +49,26 @@ module Api
       namespaces = EXISTING_NAMESPACES.dup
 
       operation_groups.each_value do |operations|
-        action = Action::Generator.new(operations)
-        output = create_folder actions_folder, action.namespace
-        output.join("#{action.action}.rb").write action.render
+        act_gen = Action::Generator.new(operations)
+        # unit_test_gen = UnitTest::Generator.new(act_gen)
+        if act_gen.namespace.present?
+          action_folder = create_folder @actions_folder, act_gen.namespace
+          unit_test_folder = create_folder @unit_test_folder, act_gen.namespace
 
-        unless namespaces.include? action.namespace
-          namespace = Namespace::Generator.new(action.namespace)
-          namespace_folder.join("#{action.namespace}.rb").write(namespace.render)
+          if namespaces.exclude? act_gen.namespace
+            namespaces.add act_gen.namespace
+            namespace_gen = Namespace::Generator.new(act_gen.namespace)
+            @namespace_folder.join("#{act_gen.namespace}.rb").write(namespace_gen.render)
+          end
+        else
+          action_folder = @actions_folder
+          unit_test_folder = @unit_test_folder
         end
-        namespaces.add action.namespace
+        action_folder.join("#{act_gen.action}.rb").write act_gen.render
+        # unit_test_folder.join("#{act_gen.action}_spec.rb").write unit_test_gen.render
       end
 
-      api_folder.join('api.rb').write Index::Generator.new(namespaces).render
+      @api_folder.join('api.rb').write Index::Generator.new(namespaces).render
     end
 
     private
@@ -75,16 +83,17 @@ module Api
     end
 
     def create_folder_structure
-      lib_folder = create_folder gem_folder, :lib
-      @opensearch_folder = create_folder lib_folder, :opensearch
+      lib_folder = create_folder @gem_folder, :lib
+      opensearch_folder = create_folder lib_folder, :opensearch
       @api_folder = create_folder opensearch_folder, :api
-      @actions_folder = create_folder api_folder, :actions
-      @namespace_folder = create_folder api_folder, :namespace
+      @actions_folder = create_folder @api_folder, :actions
+      @namespace_folder = create_folder @api_folder, :namespace
+      @unit_test_folder = create_folder @gem_folder, 'spec/opensearch/api/actions'
     end
 
     def create_folder(parent, folder_name)
       folder = parent.join folder_name.to_s
-      folder.mkdir unless folder.exist?
+      folder.mkpath unless folder.exist?
       folder
     end
   end
