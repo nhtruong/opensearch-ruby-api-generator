@@ -45,10 +45,13 @@ module Api
       create_folder_structure
     end
 
-    def generate
+    # @param [Array<String>] group_names list of operation groups to generate. Leave blank to generate all.
+    def generate(group_names = nil)
       namespaces = EXISTING_NAMESPACES.dup
 
-      operation_groups.each_value do |operations|
+      operation_groups.each do |group_name, operations|
+        next if group_names && !group_names.include?(group_name)
+
         act_gen = Action::Generator.new(operations)
         # unit_test_gen = UnitTest::Generator.new(act_gen)
         if act_gen.namespace.present?

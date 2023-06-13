@@ -10,5 +10,8 @@ module OpenSearch
       {{>action.module}}
     end
     {{/module_name}}
+    {{^module_name}}
+    {{>action.module}}
+    {{/module_name}}
   end
 end

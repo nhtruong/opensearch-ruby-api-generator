@@ -20,4 +20,4 @@ AwesomePrint.irb!
 
 
 generator = Api::Generator.new './api_specs/opensearch.openapi.json', './poc', '2.5'
-generator.generate
+generator.generate(%w[remote_store.restore index])

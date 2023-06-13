@@ -5,12 +5,10 @@ module Actions
     {{/query_args}}
   ]).freeze
 
-  {{#method_description}}
-  # {{{description}}}
-  {{/method_description}}
+  # {{{method_description}}}
   #
   {{#argument_descriptions}}
-  # @option arguments [{{data_type}}] :{{name}} - {{#required}}* Required * {{/required}}{{#deprecated}}DEPRECATED {{/deprecated}}{{#default}}(default: {{default}} {{/default}}{{description}}
+  # @option arguments [{{data_type}}] :{{name}} {{#required}}*Required* {{/required}}{{#deprecated}}DEPRECATED {{/deprecated}}{{#default}}(default: {{default}}) {{/default}}{{description}}
   {{/argument_descriptions}}
   def {{method_name}}(arguments = {})
     {{#required_args}}

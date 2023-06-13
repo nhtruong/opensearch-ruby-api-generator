@@ -30,7 +30,7 @@ module Api
         @operations = operations
         @namespace = @operations.first.namespace
         @action = @operations.first.action
-        @http_verbs = operations.map(&:http_verb).sort
+        @http_verbs = operations.map(&:http_verb).uniq.sort
         @urls = Set.new(operations.map(&:url))
         validate
         super
@@ -69,11 +69,10 @@ module Api
 
       def validate
         return if @operations.length == 1
-        raise 'Can only combine upto 2 operations into 1 action' if @operations.length > 2
 
         case @http_verbs
         when %w[get post]
-          raise 'Can only combine get/post operations if they share the same path' if @paths.size > 1
+          raise 'Can only combine get/post operations if they share the same path' if @urls.size > 1
         when %w[post put]
           raise 'Can only combine put/post operations if their paths differ by 1 argument' if verb_diff.size != 1
         else
@@ -82,7 +81,7 @@ module Api
       end
 
       def verb_diff
-        @paths.map { |path| Set.new(path.split('/')) }.sort_by(&:size).reverse.reduce(&:difference)
+        @urls.map { |path| Set.new(path.split('/')) }.sort_by(&:size).reverse.reduce(&:difference)
       end
     end
   end

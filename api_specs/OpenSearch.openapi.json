@@ -242,7 +242,8 @@
                                 "$ref": "#/components/schemas/IndicesUpdateAliases_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -289,15 +290,6 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/IndicesUpdateAliasesResponseContent"
-                                },
-                                "examples": {
-                                    "IndicesUpdateAliases_example1": {
-                                        "summary": "Examples for Post Aliases Operation.",
-                                        "description": "",
-                                        "value": {
-                                            "acknowledged": true
-                                        }
-                                    }
                                 }
                             }
                         }
@@ -381,7 +373,8 @@
                                 "$ref": "#/components/schemas/Bulk_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -511,7 +504,8 @@
                                 "$ref": "#/components/schemas/Bulk_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -1942,14 +1936,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "CatIndices 200 response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/CatIndicesOutputPayload"
-                                }
-                            }
-                        }
+                        "description": "CatIndices 200 response"
                     }
                 },
                 "x-operation-group": "cat.indices",
@@ -2127,14 +2114,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "CatIndices_WithIndex 200 response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/CatIndices_WithIndexOutputPayload"
-                                }
-                            }
-                        }
+                        "description": "CatIndices_WithIndex 200 response"
                     }
                 },
                 "x-operation-group": "cat.indices",
@@ -2499,14 +2479,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "CatNodes 200 response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/CatNodesOutputPayload"
-                                }
-                            }
-                        }
+                        "description": "CatNodes 200 response"
                     }
                 },
                 "x-operation-group": "cat.nodes",
@@ -5942,7 +5915,8 @@
                                 "$ref": "#/components/schemas/ClusterPutSettings_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -6795,7 +6769,8 @@
                                 "$ref": "#/components/schemas/ClusterPutComponentTemplate_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -6878,7 +6853,8 @@
                                 "$ref": "#/components/schemas/ClusterPutComponentTemplate_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -8460,7 +8436,8 @@
                                 "$ref": "#/components/schemas/IndicesPutIndexTemplate_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -8542,7 +8519,8 @@
                                 "$ref": "#/components/schemas/IndicesPutIndexTemplate_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -8693,7 +8671,8 @@
                                 "$ref": "#/components/schemas/IngestSimulate_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -8845,7 +8824,8 @@
                                 "$ref": "#/components/schemas/IngestPutPipeline_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -8950,7 +8930,8 @@
                                 "$ref": "#/components/schemas/IngestSimulate_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -9281,7 +9262,8 @@
                                 "$ref": "#/components/schemas/Mget_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -9483,7 +9465,8 @@
                                 "$ref": "#/components/schemas/Msearch_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -9639,7 +9622,8 @@
                                 "$ref": "#/components/schemas/MsearchTemplate_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -11690,7 +11674,8 @@
                                 "$ref": "#/components/schemas/RankEval_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -11875,7 +11860,8 @@
                                 "$ref": "#/components/schemas/Reindex_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -12055,7 +12041,8 @@
                                 }
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -12448,7 +12435,8 @@
                                 "$ref": "#/components/schemas/PutScript_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -12521,7 +12509,8 @@
                                 "$ref": "#/components/schemas/PutScript_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -12592,7 +12581,8 @@
                                 "$ref": "#/components/schemas/PutScript_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -12672,7 +12662,8 @@
                                 "$ref": "#/components/schemas/PutScript_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -13724,7 +13715,8 @@
                                 "$ref": "#/components/schemas/DeletePit_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "responses": {
                     "200": {
@@ -14208,7 +14200,8 @@
                                 "$ref": "#/components/schemas/SearchTemplate_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -14656,7 +14649,8 @@
                                 "$ref": "#/components/schemas/IndicesPutSettings_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -15162,7 +15156,8 @@
                                 "$ref": "#/components/schemas/SnapshotCreateRepository_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -15244,7 +15239,8 @@
                                 "$ref": "#/components/schemas/SnapshotCreateRepository_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -15833,7 +15829,8 @@
                                 "$ref": "#/components/schemas/SnapshotClone_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -16887,7 +16884,8 @@
                                 "$ref": "#/components/schemas/IndicesPutTemplate_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -16969,7 +16967,8 @@
                                 "$ref": "#/components/schemas/IndicesPutTemplate_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -18932,7 +18931,8 @@
                                 "$ref": "#/components/schemas/Bulk_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -19073,7 +19073,8 @@
                                 "$ref": "#/components/schemas/Bulk_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -19937,7 +19938,8 @@
                                 "$ref": "#/components/schemas/Create_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -20050,7 +20052,8 @@
                                 "$ref": "#/components/schemas/Create_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -20165,7 +20168,8 @@
                                 "$ref": "#/components/schemas/DeleteByQuery_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -20549,7 +20553,8 @@
                                 "$ref": "#/components/schemas/Index_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -21134,7 +21139,8 @@
                                 "$ref": "#/components/schemas/Index_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -21281,7 +21287,8 @@
                                 "$ref": "#/components/schemas/Index_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -22249,7 +22256,8 @@
                                 "$ref": "#/components/schemas/IndicesPutMapping_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -22366,7 +22374,8 @@
                                 "$ref": "#/components/schemas/IndicesPutMapping_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -22379,14 +22388,7 @@
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
                             "x-data-type": "list"
                         },
-                        "required": true,
-                        "examples": {
-                            "IndicesPutMapping_Put_example1": {
-                                "summary": "Examples for Put Index Mapping with index Operation.",
-                                "description": "",
-                                "value": "books"
-                            }
-                        }
+                        "required": true
                     },
                     {
                         "name": "timeout",
@@ -22468,15 +22470,6 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/IndicesPutMapping_PutResponseContent"
-                                },
-                                "examples": {
-                                    "IndicesPutMapping_Put_example1": {
-                                        "summary": "Examples for Put Index Mapping with index Operation.",
-                                        "description": "",
-                                        "value": {
-                                            "acknowledged": true
-                                        }
-                                    }
                                 }
                             }
                         }
@@ -22698,7 +22691,8 @@
                                 "$ref": "#/components/schemas/Mget_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -22919,7 +22913,8 @@
                                 "$ref": "#/components/schemas/Msearch_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -23095,7 +23090,8 @@
                                 "$ref": "#/components/schemas/MsearchTemplate_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -23637,7 +23633,8 @@
                                 "$ref": "#/components/schemas/RankEval_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -25074,7 +25071,8 @@
                                 "$ref": "#/components/schemas/SearchTemplate_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -25573,7 +25571,8 @@
                                 "$ref": "#/components/schemas/IndicesPutSettings_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -27468,7 +27467,8 @@
                                 "$ref": "#/components/schemas/Update_BodyParams"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "parameters": [
                     {
@@ -28463,9 +28463,6 @@
                     "pb"
                 ]
             },
-            "CatIndicesOutputPayload": {},
-            "CatIndices_WithIndexOutputPayload": {},
-            "CatNodesOutputPayload": {},
             "ClearScroll_BodyParams": {
                 "type": "object"
             },

@@ -14,11 +14,17 @@ module Api
     # Logic to generate Method Documentation for each Action
     module MethodDocumentation
       def method_description
-        @operations.map { |op| { description: op.description } }
+        @operations.first.description
       end
 
       def argument_descriptions
-        url_args = @operations.map(&:parameters).map(&:to_a).flatten.index_by(&:name).values.map do |p|
+        url_args_desc + [body_arg_desc].compact
+      end
+
+      private
+
+      def url_args_desc
+        @operations.map(&:parameters).map(&:to_a).flatten.index_by(&:name).values.map do |p|
           {
             data_type: p.schema.type.capitalize,
             name: p.name,
@@ -28,15 +34,16 @@ module Api
             description: p.description
           }
         end
+      end
 
+      def body_arg_desc
         body = @operations.map(&:request_body).find(&:present?)
-        return url_args if body.nil?
+        return nil if body.nil?
 
-        body_arg = { data_type: :Hash,
-                     name: :body,
-                     required: 'body'.in?(_required),
-                     description: body.description }
-        url_args + [body_arg]
+        { data_type: :Hash,
+           name: :body,
+           required: 'body'.in?(_required),
+           description: body.description }
       end
     end
   end
