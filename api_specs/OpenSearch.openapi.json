@@ -112,7 +112,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of alias names.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -177,7 +177,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of alias names.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -876,7 +876,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of alias names.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -1097,7 +1097,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of node IDs or names to limit the returned information.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -1411,7 +1411,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices to limit the returned information.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -1593,7 +1593,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of fields to return the fielddata size.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -1956,7 +1956,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices to limit the returned information.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true,
                         "examples": {
@@ -2855,7 +2855,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list or wildcard expression of index names to limit the returned information.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -3250,7 +3250,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list or wildcard expression of index names to limit the returned information.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -3517,7 +3517,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices to limit the returned information.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -3761,7 +3761,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices to limit the returned information.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -4015,7 +4015,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of repository names.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -4623,7 +4623,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of regular-expressions to filter the thread pools in the output.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -5073,7 +5073,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Limit the information returned to specific indicies.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -5400,7 +5400,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -5493,7 +5493,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -6117,7 +6117,7 @@
                                 "cluster_manager_node",
                                 "version"
                             ],
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -6236,7 +6236,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -6259,7 +6259,7 @@
                                 "cluster_manager_node",
                                 "version"
                             ],
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -6418,7 +6418,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -6659,7 +6659,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "The Comma-separated names of the component templates.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -7447,7 +7447,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of data streams; use `_all` or empty string to perform the operation on all data streams.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     }
@@ -7472,7 +7472,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of data streams; use `_all` or empty string to perform the operation on all data streams.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     }
@@ -7536,7 +7536,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of data streams; use `_all` or empty string to perform the operation on all data streams.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     }
@@ -8306,7 +8306,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated names of the index templates.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -8772,7 +8772,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of pipeline ids. Wildcards supported.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -9082,7 +9082,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of fields.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -10356,7 +10356,7 @@
                                 "discovery",
                                 "indexing_pressure"
                             ],
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -10496,7 +10496,7 @@
                                 "discovery",
                                 "indexing_pressure"
                             ],
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -10526,7 +10526,7 @@
                                 "warmer",
                                 "suggest"
                             ],
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -10686,7 +10686,7 @@
                                 "_all",
                                 "rest_actions"
                             ],
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -10725,7 +10725,7 @@
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.",
                             "x-overloaded-param": "metric",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -10773,7 +10773,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -10863,7 +10863,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -10964,7 +10964,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of node IDs to span the reload/reinit call. Should stay empty because reloading usually involves all cluster nodes.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -11002,7 +11002,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -11142,7 +11142,7 @@
                                 "discovery",
                                 "indexing_pressure"
                             ],
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -11154,7 +11154,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -11294,7 +11294,7 @@
                                 "discovery",
                                 "indexing_pressure"
                             ],
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -11324,7 +11324,7 @@
                                 "warmer",
                                 "suggest"
                             ],
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -11336,7 +11336,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -11462,7 +11462,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -11504,7 +11504,7 @@
                                 "_all",
                                 "rest_actions"
                             ],
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -11516,7 +11516,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -11554,7 +11554,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -11577,7 +11577,7 @@
                                 "plugins",
                                 "ingest"
                             ],
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -12214,7 +12214,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of names or wildcard expressions.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -13908,7 +13908,7 @@
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of scroll IDs to clear.",
                             "deprecated": true,
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     }
@@ -14758,7 +14758,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of settings.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -15037,7 +15037,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Name of the snapshot repository to unregister. Wildcard (`*`) patterns are supported.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -15098,7 +15098,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of repository names.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -15594,7 +15594,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of snapshot names.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -16010,7 +16010,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of snapshot names.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -16211,7 +16211,7 @@
                                 "warmer",
                                 "suggest"
                             ],
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -16753,7 +16753,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated names of the index templates.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -16827,7 +16827,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated names of the index templates.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -17652,7 +17652,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices to delete; use `_all` or `*` string to delete all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true,
                         "examples": {
@@ -17757,7 +17757,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -17869,7 +17869,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -18061,7 +18061,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices to filter aliases.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -18128,7 +18128,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -18140,7 +18140,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of aliases to delete (supports wildcards); use `_all` to delete all aliases for the specified indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -18201,7 +18201,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices to filter aliases.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -18213,7 +18213,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of alias names.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -18274,7 +18274,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices to filter aliases.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -18286,7 +18286,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of alias names.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -18356,7 +18356,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -18441,7 +18441,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -18515,7 +18515,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -18527,7 +18527,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of aliases to delete (supports wildcards); use `_all` to delete all aliases for the specified indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -18597,7 +18597,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -18678,7 +18678,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -18833,7 +18833,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices to add a block to.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -19219,7 +19219,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -19515,7 +19515,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices to close.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -19613,7 +19613,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices to restrict the results.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -19780,7 +19780,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices to restrict the results.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -20180,7 +20180,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -21784,7 +21784,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -21868,7 +21868,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -21945,7 +21945,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -22015,7 +22015,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -22087,7 +22087,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -22169,7 +22169,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -22268,7 +22268,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -22386,7 +22386,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -22492,7 +22492,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -22504,7 +22504,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of fields.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -22822,7 +22822,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices to use as default.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -22925,7 +22925,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices to use as default.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -23020,7 +23020,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices to use as default.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -23102,7 +23102,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices to use as default.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -23489,7 +23489,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices to open.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -23576,7 +23576,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -23645,7 +23645,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -23706,7 +23706,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -23753,7 +23753,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -23804,7 +23804,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -23857,7 +23857,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -24346,7 +24346,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true,
                         "examples": {
@@ -24854,7 +24854,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -24923,7 +24923,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -25083,7 +25083,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -25235,7 +25235,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -25315,7 +25315,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -25397,7 +25397,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -25460,7 +25460,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true,
                         "examples": {
@@ -25583,7 +25583,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -25692,7 +25692,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true,
                         "examples": {
@@ -25711,7 +25711,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of settings.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true,
                         "examples": {
@@ -25826,7 +25826,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -26589,7 +26589,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -26718,7 +26718,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -26748,7 +26748,7 @@
                                 "warmer",
                                 "suggest"
                             ],
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -27660,7 +27660,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -28040,7 +28040,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -28091,7 +28091,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -28163,7 +28163,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
@@ -28304,7 +28304,7 @@
                             "type": "string",
                             "pattern": "^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)",
                             "description": "Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices.",
-                            "x-data-type": "list"
+                            "x-data-type": "array"
                         },
                         "required": true
                     },
