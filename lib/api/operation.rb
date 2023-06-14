@@ -11,6 +11,7 @@
 
 require 'openapi3_parser/node/operation'
 require_relative 'version'
+require_relative 'parameter'
 
 module Api
   # Wrapper for Openapi3Parser::Node::Operation that adds extra info
@@ -30,6 +31,10 @@ module Api
       @version_added = Version.new spec['x-version-added']
       @version_removed = Version.new spec['x-version-removed']
       @version_deprecated = Version.new spec['x-version-deprecated']
+    end
+
+    def parameters
+      @parameters ||= super.map { |p| Parameter.new(p) }
     end
 
     # @param [string] version OpenSearch Version Number

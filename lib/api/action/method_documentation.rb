@@ -18,32 +18,32 @@ module Api
       end
 
       def argument_descriptions
-        url_args_desc + [body_arg_desc].compact
+        params_desc + [body_desc].compact
       end
 
       private
 
-      def url_args_desc
-        @operations.map(&:parameters).map(&:to_a).flatten.index_by(&:name).values.map do |p|
+      def params_desc
+        parameters.map do |p|
           {
-            data_type: p.schema.type.capitalize,
+            data_type: p.ruby_type,
             name: p.name,
             required: p.name.in?(_required),
-            deprecated: p.schema.deprecated?,
-            default: p.schema.default,
-            description: p.description
+            description: p.description,
+            default: p.default,
+            deprecated: p.deprecated?,
           }
         end
       end
 
-      def body_arg_desc
+      def body_desc
         body = @operations.map(&:request_body).find(&:present?)
-        return nil if body.nil?
+        return if body.nil?
 
         { data_type: :Hash,
-           name: :body,
-           required: 'body'.in?(_required),
-           description: body.description }
+          name: :body,
+          required: 'body'.in?(_required),
+          description: body.description }
       end
     end
   end

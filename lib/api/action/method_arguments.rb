@@ -17,28 +17,16 @@ module Api
         _required.map { |arg| { arg: } }
       end
 
-      def path_args
-        @operations.map(&:parameters).map(&:to_a).flatten
-                   .select { |p| p['in'] == 'path' }
-                   .each_with_object({}) { |p, h| h[p['name']] = p }
-                   .map { |name, p| { arg: name, listify: p['x-array'] } }
+      def path_params
+        parameters.select(&:in_path?).map { |p| { name: p.name, listify: p.array? } }
       end
 
-      def query_args
-        sets = @operations.map do |op|
-          Set.new(op.parameters.select { |p| p['in'] == 'query' }.map(&:name))
-        end
-        sets.reduce(&:intersection).map { |arg| { arg: } }
+      def query_params
+        parameters.select(&:in_query?).map { |p| { name: p.name } }
       end
 
-      def valid_params_constant_name
-        "#{method_name}_PARAMS".upcase
-      end
-
-      def listify_query_args
-        @operations.map(&:parameters).map(&:to_a).flatten
-                   .select { |p| p['in'] == 'query' && p['x-array'] }
-                   .map(&:name).uniq.map { |arg| { arg: } }
+      def listify_query_params
+        parameters.select(&:in_query?).select(&:array?).map { |p| { name: p.name } }
       end
 
       private

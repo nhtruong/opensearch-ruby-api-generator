@@ -28,8 +28,8 @@ module Api
       # @param [Array<Api::Operation>] operations
       def initialize(operations)
         @operations = operations
-        @namespace = @operations.first.namespace
-        @action = @operations.first.action
+        @namespace = @operations.first&.namespace
+        @action = @operations.first&.action
         @http_verbs = operations.map(&:http_verb).uniq.sort
         @urls = Set.new(operations.map(&:url))
         validate
@@ -42,6 +42,10 @@ module Api
 
       def method_name
         action.underscore
+      end
+
+      def valid_params_constant_name
+        "#{method_name.upcase}_QUERY_PARAMS"
       end
 
       def url_components
@@ -67,17 +71,14 @@ module Api
 
       private
 
+      def parameters
+        @parameters ||= @operations.map(&:parameters).flatten.uniq(&:name)
+      end
+
+      # TODO: Validate different types of operations combinations
       def validate
         return if @operations.length == 1
-
-        case @http_verbs
-        when %w[get post]
-          raise 'Can only combine get/post operations if they share the same path' if @urls.size > 1
-        when %w[post put]
-          raise 'Can only combine put/post operations if their paths differ by 1 argument' if verb_diff.size != 1
-        else
-          raise "Cannot combine #{@http_verbs.join('/')} operations"
-        end
+        true
       end
 
       def verb_diff

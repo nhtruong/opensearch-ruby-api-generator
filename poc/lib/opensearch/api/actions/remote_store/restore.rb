@@ -16,16 +16,16 @@ module OpenSearch
   module API
     module RemoteStore
       module Actions
-        RESTORE_PARAMS = Set.new(%i[
+        RESTORE_QUERY_PARAMS = Set.new(%i[
           cluster_manager_timeout
           wait_for_completion
         ]).freeze
       
-        # Restore one or more indices from a remote backup.
+        # Restores from remote store.
         #
-        # @option arguments [String] :cluster_manager_timeout - 
-        # @option arguments [Boolean] :wait_for_completion - 
-        # @option arguments [Hash] :body - * Required * 
+        # @option arguments [Time] :cluster_manager_timeout Operation timeout for connection to cluster-manager node.
+        # @option arguments [Boolean] :wait_for_completion Should this request wait until the operation has completed before returning.
+        # @option arguments [Hash] :body *Required* 
         def restore(arguments = {})
           raise ArgumentError, "Required argument 'body' missing" unless arguments[:body]
       
@@ -33,9 +33,9 @@ module OpenSearch
       
           headers = arguments.delete(:headers) || {}
           body    = arguments.delete(:body)
-          params  = Utils.__validate_and_extract_params arguments, RESTORE_PARAMS
           url     = Utils.__pathify '_remotestore', '_restore'
           method  = OpenSearch::API::HTTP_POST
+          params  = Utils.__validate_and_extract_params arguments, RESTORE_QUERY_PARAMS
       
       
           perform_request(method, url, params, body, headers).body
