@@ -15,10 +15,12 @@ module Api
     module MethodArguments
       def required_args
         _required.map { |arg| { arg: } }
+                 .tap { |args| args.last&.[]=('_blank_line', true) }
       end
 
       def path_params
         parameters.select(&:in_path?).map { |p| { name: p.name, listify: p.array? } }
+                  .tap { |args| args.last&.[]=('_blank_line', true) }
       end
 
       def query_params
@@ -27,6 +29,7 @@ module Api
 
       def listify_query_params
         parameters.select(&:in_query?).select(&:array?).map { |p| { name: p.name } }
+                  .tap { |args| args.first&.[]=('_blank_line', true) }
       end
 
       private

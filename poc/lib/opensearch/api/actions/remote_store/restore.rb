@@ -30,13 +30,11 @@ module OpenSearch
           raise ArgumentError, "Required argument 'body' missing" unless arguments[:body]
       
           arguments = arguments.clone
-      
           headers = arguments.delete(:headers) || {}
           body    = arguments.delete(:body)
           url     = Utils.__pathify '_remotestore', '_restore'
           method  = OpenSearch::API::HTTP_POST
           params  = Utils.__validate_and_extract_params arguments, RESTORE_QUERY_PARAMS
-      
       
           perform_request(method, url, params, body, headers).body
         end
