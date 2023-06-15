@@ -23,7 +23,7 @@ module Api
       include MethodDocumentation
       include MethodArguments
 
-      attr_reader :namespace, :action
+      attr_reader :namespace, :action, :module_name, :method_name, :valid_params_constant_name
 
       # @param [Array<Api::Operation>] operations
       def initialize(operations)
@@ -31,30 +31,18 @@ module Api
         @namespace = @operations.first&.namespace
         @action = @operations.first&.action
         @http_verbs = operations.map(&:http_verb)
-        @urls = Set.new(operations.map(&:url))
+        @urls = operations.map(&:url).map { |u| u.split('/').select(&:present?) }.uniq
+
+        @module_name = namespace&.camelize
+        @method_name = action.underscore
+        @valid_params_constant_name = "#{method_name.upcase}_QUERY_PARAMS"
         super
       end
 
-      def module_name
-        namespace&.camelize
-      end
-
-      def method_name
-        action.underscore
-      end
-
-      def valid_params_constant_name
-        "#{method_name.upcase}_QUERY_PARAMS"
-      end
-
       def url_components
-        @urls.max_by(&:length).split('/').select(&:present?).map do |component|
-          if component.starts_with? '{'
-            "_#{component[/{(.+)}/, 1]}"
-          else
-            "'#{component}'"
-          end
-        end.join(', ')
+        @urls.max_by(&:length)
+             .map { |e| e.starts_with?('{') ? "_#{e[/{(.+)}/, 1]}" : "'#{e}'" }
+             .join(', ')
       end
 
       def http_verb
@@ -62,7 +50,7 @@ module Api
         when %w[get post]
           'body ? OpenSearch::API::HTTP_POST : OpenSearch::API::HTTP_GET'
         when %w[post put]
-          diff_param = @urls.map { |u| u.split('/').to_set }.sort_by(&:size).reverse.reduce(&:difference).first
+          diff_param = @urls.map(&:to_set).sort_by(&:size).reverse.reduce(&:difference).first
           "_#{diff_param[/{(.+)}/, 1]} ? OpenSearch::API::HTTP_PUT : OpenSearch::API::HTTP_POST"
         else
           "OpenSearch::API::HTTP_#{@http_verbs.first.upcase}"
