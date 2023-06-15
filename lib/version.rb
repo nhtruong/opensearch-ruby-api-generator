@@ -9,8 +9,6 @@
 
 # frozen_string_literal: true
 
-require 'openapi3_parser/node/operation'
-
 # OpenSearch Version Number
 class Version
   include Comparable

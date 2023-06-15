@@ -26,4 +26,3 @@ class BaseGenerator < Mustache
       '# Update the code generation logic instead of modifying this file directly.'
   end
 end
-

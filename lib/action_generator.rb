@@ -9,7 +9,6 @@
 
 # frozen_string_literal: true
 
-require 'openapi3_parser'
 require_relative 'base_generator'
 require_relative 'operation'
 
@@ -20,7 +19,7 @@ class ActionGenerator < BaseGenerator
               :module_name, :method_name, :valid_params_constant_name,
               :method_description, :argument_descriptions
 
-  # @param [Array<Api::Operation>] operations
+  # @param [Array<Operation>] operations
   def initialize(operations)
     @operations = operations
     @namespace = operations.first&.namespace

@@ -9,7 +9,6 @@
 
 # frozen_string_literal: true
 
-require 'openapi3_parser'
 require_relative 'base_generator'
 
 # Generate a Namespace file via Mustache
