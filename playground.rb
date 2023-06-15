@@ -1,6 +1,6 @@
-require './lib/api/generator'
-require './lib/api/operation'
-require './lib/api/version'
+require './lib/api_generator'
+require './lib/operation'
+require './lib/version'
 require 'awesome_print'
 AwesomePrint.irb!
 
@@ -19,5 +19,5 @@ AwesomePrint.irb!
 # Pathname('./poc/action.rb').write(output)
 
 
-generator = Api::Generator.new './api_specs/opensearch.openapi.json', './poc', '2.5'
+generator = ApiGenerator.new './api_specs/opensearch.openapi.json', './poc', '2.5'
 generator.generate(%w[remote_store.restore index field_caps])
