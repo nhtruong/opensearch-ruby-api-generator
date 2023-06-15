@@ -19,5 +19,6 @@ AwesomePrint.irb!
 # Pathname('./poc/action.rb').write(output)
 
 
-generator = ApiGenerator.new './api_specs/opensearch.openapi.json', './poc', '2.5'
-generator.generate(%w[remote_store.restore index field_caps])
+generator = ApiGenerator.new './api_specs/opensearch.openapi.json', './poc',
+                             version: '2.5', groups: %w[remote_store.restore index field_caps]
+generator.generate
