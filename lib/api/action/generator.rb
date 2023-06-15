@@ -30,9 +30,8 @@ module Api
         @operations = operations
         @namespace = @operations.first&.namespace
         @action = @operations.first&.action
-        @http_verbs = operations.map(&:http_verb).uniq.sort
+        @http_verbs = operations.map(&:http_verb)
         @urls = Set.new(operations.map(&:url))
-        validate
         super
       end
 
@@ -59,11 +58,12 @@ module Api
       end
 
       def http_verb
-        case @http_verbs
+        case @http_verbs.uniq.sort
         when %w[get post]
           'body ? OpenSearch::API::HTTP_POST : OpenSearch::API::HTTP_GET'
         when %w[post put]
-          "_#{verb_diff.first[/{(.+)}/, 1]} ? OpenSearch::API::HTTP_PUT : OpenSearch::API::HTTP_POST"
+          diff_param = @urls.map { |u| u.split('/').to_set }.sort_by(&:size).reverse.reduce(&:difference).first
+          "_#{diff_param[/{(.+)}/, 1]} ? OpenSearch::API::HTTP_PUT : OpenSearch::API::HTTP_POST"
         else
           "OpenSearch::API::HTTP_#{@http_verbs.first.upcase}"
         end
@@ -73,16 +73,6 @@ module Api
 
       def parameters
         @parameters ||= @operations.map(&:parameters).flatten.uniq(&:name)
-      end
-
-      # TODO: Validate different types of operations combinations
-      def validate
-        return if @operations.length == 1
-        true
-      end
-
-      def verb_diff
-        @urls.map { |path| Set.new(path.split('/')) }.sort_by(&:size).reverse.reduce(&:difference)
       end
     end
   end
