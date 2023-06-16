@@ -17,6 +17,11 @@ require 'active_support/all'
 class BaseGenerator < Mustache
   self.template_path = './templates'
 
+  def initialize(output_folder)
+    @output_folder = output_folder
+    super
+  end
+
   def license_header
     Pathname('./templates/license_header.txt').read
   end
@@ -24,5 +29,21 @@ class BaseGenerator < Mustache
   def generated_code_warning
     "# This code was generated from OpenSearch API Spec.\n" \
       '# Update the code generation logic instead of modifying this file directly.'
+  end
+
+  def generate
+    output_file.write(render)
+  end
+
+  private
+
+  def output_file
+    raise "'#{__method__}' Must be implemented by subclass"
+  end
+
+  def create_folder(*components)
+    folder = components.reduce(&:+)
+    folder.mkpath unless folder.exist?
+    folder
   end
 end

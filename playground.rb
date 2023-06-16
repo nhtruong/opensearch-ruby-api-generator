@@ -20,5 +20,5 @@ AwesomePrint.irb!
 
 
 generator = ApiGenerator.new './api_specs/opensearch.openapi.json', './poc',
-                             version: '2.5', groups: %w[remote_store.restore index field_caps]
+                             version: '2.5', groups: nil
 generator.generate

@@ -16,9 +16,9 @@ require_relative 'base_generator'
 class IndexGenerator < BaseGenerator
   self.template_file = './templates/index.mustache'
 
-  def initialize(namespaces)
-    @namespaces = Set.new namespaces
-    super
+  def initialize(output_folder, namespaces)
+    @namespaces = namespaces.compact
+    super(output_folder)
   end
 
   def legacy_license_header
@@ -31,5 +31,11 @@ class IndexGenerator < BaseGenerator
     end
     modules.last[:comma] = ''
     modules
+  end
+
+  private
+
+  def output_file
+    create_folder(@output_folder).join('api.rb')
   end
 end

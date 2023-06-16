@@ -18,8 +18,10 @@ class ActionGenerator < BaseGenerator
   attr_reader :module_name, :method_name, :valid_params_constant_name,
               :method_description, :argument_descriptions
 
+  # @param [Pathname] output_folder
   # @param [Action] action
-  def initialize(action)
+  def initialize(output_folder, action)
+    super(output_folder)
     @action = action
     @urls = action.urls.map { |u| u.split('/').select(&:present?) }.uniq
     @module_name = action.namespace&.camelize
@@ -27,7 +29,6 @@ class ActionGenerator < BaseGenerator
     @valid_params_constant_name = "#{action.name.upcase}_QUERY_PARAMS"
     @method_description = action.description
     @argument_descriptions = params_desc + [body_desc].compact
-    super
   end
 
   def url_components
@@ -68,6 +69,10 @@ class ActionGenerator < BaseGenerator
   end
 
   private
+
+  def output_file
+    create_folder(*[@output_folder, @action.namespace].compact).join("#{@action.name}.rb")
+  end
 
   def params_desc
     @action.parameters.map do |p|

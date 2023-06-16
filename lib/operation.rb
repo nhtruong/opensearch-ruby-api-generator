@@ -38,6 +38,8 @@ class Operation < Openapi3Parser::Node::Operation
 
   def part_of?(version, groups)
     version = Version.new(version)
-    groups.include?(group) && version_added <= version && version < version_removed
+    part_of_version = version_added <= version && version < version_removed
+    part_of_group = groups.nil? || groups.include?(group)
+    part_of_version && part_of_group
   end
 end

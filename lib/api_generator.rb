@@ -36,8 +36,7 @@ class ApiGenerator
   # @param [string] version target OpenSearch version (e.g. 2.5)
   # @param [Array<String>] groups list of operation groups to generate (optional)
   def initialize(openapi_spec, gem_folder, version:, groups: nil)
-    create_folder_structure(gem_folder)
-
+    @gem_folder = Pathname gem_folder
     operations = Openapi3Parser.load_file(openapi_spec).paths.flat_map do |url, path|
       path.to_h.slice(*HTTP_VERBS).compact.map do |verb, operation_spec|
         operation = Operation.new operation_spec, url, verb
@@ -49,42 +48,16 @@ class ApiGenerator
   end
 
   def generate
+    api_folder = @gem_folder + 'lib/opensearch/api'
+    actions_folder = @gem_folder + 'lib/opensearch/api/actions'
+    namespace_folder = @gem_folder + 'lib/opensearch/api/namespaces'
+    unit_test_folder = @gem_folder + 'spec/opensearch/api/actions'
+
     namespaces = EXISTING_NAMESPACES.dup
-
     @actions.each do |action|
-      act_gen = ActionGenerator.new(action)
-      if action.namespace.present?
-        action_folder = create_folder @actions_folder, action.namespace
-
-        if namespaces.exclude? action.namespace
-          namespaces.add action.namespace
-          namespace_gen = NamespaceGenerator.new(action.namespace)
-          @namespace_folder.join("#{action.namespace}.rb").write(namespace_gen.render)
-        end
-      else
-        action_folder = @actions_folder
-      end
-      action_folder.join("#{action.name}.rb").write act_gen.render
+      ActionGenerator.new(actions_folder, action).generate
+      NamespaceGenerator.new(namespace_folder, action.namespace).generate(namespaces)
     end
-
-    @api_folder.join('api.rb').write IndexGenerator.new(namespaces).render
-  end
-
-  private
-
-  def create_folder_structure(gem_folder)
-    gem_folder = Pathname gem_folder
-    lib_folder = create_folder gem_folder, :lib
-    opensearch_folder = create_folder lib_folder, :opensearch
-    @api_folder = create_folder opensearch_folder, :api
-    @actions_folder = create_folder @api_folder, :actions
-    @namespace_folder = create_folder @api_folder, :namespace
-    # @unit_test_folder = create_folder gem_folder, 'spec/opensearch/api/actions'
-  end
-
-  def create_folder(parent, folder_name)
-    folder = parent.join folder_name.to_s
-    folder.mkpath unless folder.exist?
-    folder
+    IndexGenerator.new(api_folder, namespaces).generate
   end
 end
