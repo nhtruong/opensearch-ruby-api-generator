@@ -10,13 +10,14 @@
 # frozen_string_literal: true
 
 require 'openapi3_parser'
-require_relative 'operation'
+require_relative 'action'
 require_relative 'action_generator'
 require_relative 'namespace_generator'
 require_relative 'index_generator'
 
 # Generate API endpoints for OpenSearch Ruby client
 class ApiGenerator
+  HTTP_VERBS = %w[get post put patch delete patch options].freeze
   EXISTING_NAMESPACES = Set.new(%w[
                                   clusters
                                   nodes
@@ -36,26 +37,34 @@ class ApiGenerator
   # @param [Array<String>] groups list of operation groups to generate (optional)
   def initialize(openapi_spec, gem_folder, version:, groups: nil)
     create_folder_structure(gem_folder)
-    @operation_groups = Operation.grouped_operations openapi_spec, version: version, groups: groups
+
+    operations = Openapi3Parser.load_file(openapi_spec).paths.flat_map do |url, path|
+      path.to_h.slice(*HTTP_VERBS).compact.map do |verb, operation_spec|
+        operation = Operation.new operation_spec, url, verb
+        operation.part_of?(version, groups) ? operation : nil
+      end
+    end.compact
+
+    @actions = operations.group_by(&:group).map { |group, ops| Action.new group, ops }
   end
 
   def generate
     namespaces = EXISTING_NAMESPACES.dup
 
-    @operation_groups.each do |group_name, operations|
-      act_gen = ActionGenerator.new(operations)
-      if act_gen.namespace.present?
-        action_folder = create_folder @actions_folder, act_gen.namespace
+    @actions.each do |action|
+      act_gen = ActionGenerator.new(action)
+      if action.namespace.present?
+        action_folder = create_folder @actions_folder, action.namespace
 
-        if namespaces.exclude? act_gen.namespace
-          namespaces.add act_gen.namespace
-          namespace_gen = NamespaceGenerator.new(act_gen.namespace)
-          @namespace_folder.join("#{act_gen.namespace}.rb").write(namespace_gen.render)
+        if namespaces.exclude? action.namespace
+          namespaces.add action.namespace
+          namespace_gen = NamespaceGenerator.new(action.namespace)
+          @namespace_folder.join("#{action.namespace}.rb").write(namespace_gen.render)
         end
       else
         action_folder = @actions_folder
       end
-      action_folder.join("#{act_gen.action}.rb").write act_gen.render
+      action_folder.join("#{action.name}.rb").write act_gen.render
     end
 
     @api_folder.join('api.rb').write IndexGenerator.new(namespaces).render

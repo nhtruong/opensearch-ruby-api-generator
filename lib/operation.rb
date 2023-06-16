@@ -14,23 +14,10 @@ require 'openapi3_parser/node/operation'
 require_relative 'version'
 require_relative 'parameter'
 
-# Wrapper for Openapi3Parser::Node::Operation that adds extra info
+# Wrapper for Openapi3Parser::Node::Operation that adds extra info unique to OpenSearch
 class Operation < Openapi3Parser::Node::Operation
-  HTTP_VERBS = %w[get post put patch delete patch options].freeze
 
-  attr_reader :url, :http_verb, :group, :namespace, :action,
-              :version_added, :version_removed, :version_deprecated
-
-  # @param [string] openapi_spec path to OpenSearch OpenAPI Spec
-  # @param [string] version target OpenSearch Version Number (optional)
-  def self.grouped_operations(spec_file, version:, groups: nil)
-    Openapi3Parser.load_file(spec_file).paths.flat_map do |url, path|
-      path.to_h.slice(*HTTP_VERBS).compact.map do |verb, operation_spec|
-        operation = new operation_spec, url, verb
-        operation.part_of?(version, groups) ? operation : nil
-      end
-    end.compact.group_by(&:group)
-  end
+  attr_reader :url, :http_verb, :group, :version_added, :version_removed, :version_deprecated
 
   # @param [Openapi3Parser::Node::Operation] spec Operation Spec
   # @param [String] url
@@ -39,8 +26,7 @@ class Operation < Openapi3Parser::Node::Operation
     super(spec.node_data, spec.node_context)
     @url = url
     @http_verb = http_verb
-    @group = spec['x-operation-group'] || ''
-    @action, @namespace = @group.split('.').reverse
+    @group = spec['x-operation-group']
     @version_added = Version.new(spec['x-version-added'] || '0.0.0')
     @version_removed = Version.new(spec['x-version-removed'] || '999.999.999')
     @version_deprecated = Version.new spec['x-version-deprecated']

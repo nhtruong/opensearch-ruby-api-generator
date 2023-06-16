@@ -14,10 +14,12 @@ require_relative 'version'
 
 # Wrapper for Openapi3Parser::Node::Parameter that adds extra info
 class Parameter < Openapi3Parser::Node::Parameter
+  attr_reader :spec
 
   # @param [Openapi3Parser::Node::Parameter] spec Parameter Spec
   def initialize(spec)
     super(spec.node_data, spec.node_context)
+    @spec = spec
   end
 
   def type
@@ -39,13 +41,5 @@ class Parameter < Openapi3Parser::Node::Parameter
 
   def ruby_type
     type.capitalize
-  end
-
-  def in_query?
-    self.in == 'query'
-  end
-
-  def in_path?
-    self.in == 'path'
   end
 end
