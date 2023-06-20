@@ -34,7 +34,7 @@ class Action
 
     @parameters.each { |p| p.spec.node_data['required'] = p.name.in?(required_components) }
     @body_required = 'body'.in?(required_components)
-    @body_description =
+    @body_description = @body.content['application/json'].schema.description if @body.present?
   end
 
   def required_components

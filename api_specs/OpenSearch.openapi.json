@@ -11612,6 +11612,209 @@
                 "x-version-added": "1.0"
             }
         },
+        "/_plugins/_security/api/tenants/": {
+            "get": {
+                "description": "Retrieves all tenants.",
+                "externalDocs": {
+                    "description": "API Reference",
+                    "url": "https://opensearch.org/docs/2.7/security/access-control/api/#get-tenants"
+                },
+                "operationId": "GetTenants",
+                "responses": {
+                    "200": {
+                        "description": "GetTenants 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetTenantsResponseContent"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-operation-group": "security.get_tenants",
+                "x-version-added": "1.0"
+            },
+            "patch": {
+                "description": "Add, delete, or modify multiple tenants in a single call.",
+                "externalDocs": {
+                    "description": "API Reference",
+                    "url": "https://opensearch.org/docs/2.7/security/access-control/api/#patch-tenants"
+                },
+                "operationId": "PatchTenants",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchTenantsParams"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "PatchTenants 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PatchTenantsResponseContent"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-operation-group": "security.patch_tenants",
+                "x-version-added": "1.0"
+            }
+        },
+        "/_plugins/_security/api/tenants/{tenant}": {
+            "delete": {
+                "description": "Delete the specified tenant.",
+                "externalDocs": {
+                    "description": "API Reference",
+                    "url": "https://opensearch.org/docs/latest/security/access-control/api/#delete-action-group"
+                },
+                "operationId": "DeleteTenant",
+                "parameters": [
+                    {
+                        "name": "tenant",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "DeleteTenant 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DeleteTenantResponseContent"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-operation-group": "security.delete_tenant",
+                "x-version-added": "1.0"
+            },
+            "get": {
+                "description": "Retrieves one tenant.",
+                "externalDocs": {
+                    "description": "API Reference",
+                    "url": "https://opensearch.org/docs/2.7/security/access-control/api/#get-tenant"
+                },
+                "operationId": "GetTenant",
+                "parameters": [
+                    {
+                        "name": "tenant",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "GetTenant 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetTenantResponseContent"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-operation-group": "security.get_tenant",
+                "x-version-added": "1.0"
+            },
+            "patch": {
+                "description": "Add, delete, or modify a single tenant.",
+                "externalDocs": {
+                    "description": "API Reference",
+                    "url": "https://opensearch.org/docs/2.7/security/access-control/api/#patch-tenant"
+                },
+                "operationId": "PatchTenant",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatchTenantParams"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "tenant",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "PatchTenant 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PatchTenantResponseContent"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-operation-group": "security.patch_tenant",
+                "x-version-added": "1.0"
+            },
+            "put": {
+                "description": "Creates or replaces the specified tenant.",
+                "externalDocs": {
+                    "description": "API Reference",
+                    "url": "https://opensearch.org/docs/2.7/security/access-control/api/#create-tenant"
+                },
+                "operationId": "CreateTenant",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateTenantParams"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "tenant",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CreateTenant 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateTenantResponseContent"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-operation-group": "security.create_tenant",
+                "x-version-added": "1.0"
+            }
+        },
         "/_rank_eval": {
             "get": {
                 "description": "Allows to evaluate the quality of ranked search results over a set of typical search queries.",
@@ -28442,8 +28645,15 @@
                     }
                 }
             },
+            "AttributeMap": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "string"
+                }
+            },
             "Bulk_BodyParams": {
                 "type": "object",
+                "description": "The operation definition and data (action-data pairs), separated by newlines",
                 "x-serialize": "bulk"
             },
             "Bytes": {
@@ -28464,10 +28674,12 @@
                 ]
             },
             "ClearScroll_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "Comma-separated list of scroll IDs to clear if none was specified via the scroll_id parameter"
             },
             "ClusterAllocationExplain_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The index, shard, and primary flag to explain. Empty means 'explain the first unassigned shard'"
             },
             "ClusterGetSettingsResponseContent": {
                 "type": "object",
@@ -28494,7 +28706,8 @@
                 ]
             },
             "ClusterPutComponentTemplate_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The template definition"
             },
             "ClusterPutSettingsResponseContent": {
                 "type": "object",
@@ -28512,6 +28725,7 @@
             },
             "ClusterPutSettings_BodyParams": {
                 "type": "object",
+                "description": "The settings to be updated. Can be either `transient` or `persistent` (survives cluster restart).",
                 "properties": {
                     "persistent": {
                         "$ref": "#/components/schemas/UserDefinedValueMap"
@@ -28535,7 +28749,8 @@
                 ]
             },
             "ClusterReroute_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The definition of `commands` to perform (`move`, `cancel`, `allocate`)"
             },
             "Conflicts": {
                 "type": "string",
@@ -28546,10 +28761,33 @@
                 ]
             },
             "Count_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "Query to restrict the results specified with the Query DSL (optional)"
+            },
+            "CreateTenantParams": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    }
+                }
+            },
+            "CreateTenantResponseContent": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "Informing of request's status."
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "The message indicating the information of action of the model."
+                    }
+                }
             },
             "Create_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The document"
             },
             "DefaultOperator": {
                 "type": "string",
@@ -28560,10 +28798,25 @@
                 ]
             },
             "DeleteByQuery_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The search definition using the Query DSL"
             },
             "DeletePit_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "Comma-separated list of pit IDs to clear"
+            },
+            "DeleteTenantResponseContent": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "Informing of request's status."
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "The message indicating the information of action of the model."
+                    }
+                }
             },
             "ExpandWildcards": {
                 "type": "string",
@@ -28577,10 +28830,12 @@
                 ]
             },
             "Explain_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The query definition using the Query DSL"
             },
             "FieldCaps_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "An index filter specified with the Query DSL"
             },
             "GetResponseContent": {
                 "type": "object",
@@ -28624,6 +28879,25 @@
                     "_index",
                     "found"
                 ]
+            },
+            "GetTenantResponseContent": {
+                "type": "object",
+                "properties": {
+                    "tenant": {
+                        "$ref": "#/components/schemas/Tenant"
+                    }
+                }
+            },
+            "GetTenantsResponseContent": {
+                "type": "object",
+                "properties": {
+                    "tenantlist": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Tenant"
+                        }
+                    }
+                }
             },
             "GroupBy": {
                 "type": "string",
@@ -28682,16 +28956,20 @@
                 }
             },
             "Index_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The document"
             },
             "IndicesAnalyze_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "Define analyzer/tokenizer parameters and the text on which the analysis should be performed"
             },
             "IndicesClone_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The configuration for the target index (`settings` and `aliases`)"
             },
             "IndicesCreateDataStream_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The data stream definition"
             },
             "IndicesCreateResponseContent": {
                 "type": "object",
@@ -28714,6 +28992,7 @@
             },
             "IndicesCreate_BodyParams": {
                 "type": "object",
+                "description": "The configuration for the index (`settings` and `mappings`)",
                 "properties": {
                     "aliases": {
                         "$ref": "#/components/schemas/UserDefinedValueMap"
@@ -28735,13 +29014,16 @@
                 }
             },
             "IndicesPutAlias_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The settings for the alias, such as `routing` or `filter`"
             },
             "IndicesPutIndexTemplate_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The template definition"
             },
             "IndicesPutMapping_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The mapping definition"
             },
             "IndicesPutMapping_PostResponseContent": {
                 "type": "object",
@@ -28760,25 +29042,32 @@
                 }
             },
             "IndicesPutSettings_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The index settings to be updated"
             },
             "IndicesPutTemplate_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The template definition"
             },
             "IndicesRollover_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The conditions that needs to be met for executing rollover"
             },
             "IndicesShrink_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The configuration for the target index (`settings` and `aliases`)"
             },
             "IndicesSimulateIndexTemplate_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "New index template definition, which will be included in the simulation, as if it already exists in the system"
             },
             "IndicesSimulateTemplate_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "New index template definition to be simulated, if no index template name is specified"
             },
             "IndicesSplit_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The configuration for the target index (`settings` and `aliases`)"
             },
             "IndicesUpdateAliasesResponseContent": {
                 "type": "object",
@@ -28793,6 +29082,7 @@
             },
             "IndicesUpdateAliases_BodyParams": {
                 "type": "object",
+                "description": "The definition of `actions` to perform",
                 "properties": {
                     "actions": {
                         "$ref": "#/components/schemas/ActionObjectStructure"
@@ -28800,7 +29090,8 @@
                 }
             },
             "IndicesValidateQuery_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The query definition specified with the Query DSL"
             },
             "IndiciesStatLevel": {
                 "type": "string",
@@ -28864,27 +29155,34 @@
                 }
             },
             "IngestPutPipeline_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The ingest definition"
             },
             "IngestSimulate_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The simulate definition"
             },
             "Mget_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "Document identifiers; can be either `docs` (containing full document information) or `ids` (when index is provided in the URL."
             },
             "MsearchTemplate_BodyParams": {
                 "type": "object",
+                "description": "The request definitions (metadata-search request definition pairs), separated by newlines",
                 "x-serialize": "bulk"
             },
             "Msearch_BodyParams": {
                 "type": "object",
+                "description": "The request definitions (metadata-search request definition pairs), separated by newlines",
                 "x-serialize": "bulk"
             },
             "Mtermvectors_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "Define ids, documents, parameters or a list of parameters per document here. You must at least provide a list of document ids. See documentation."
             },
             "NodesReloadSecureSettings_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "An object containing the password for the opensearch keystore"
             },
             "NodesStatLevel": {
                 "type": "string",
@@ -28903,11 +29201,72 @@
                     "create"
                 ]
             },
+            "PatchOperation": {
+                "type": "object",
+                "properties": {
+                    "op": {
+                        "type": "string"
+                    },
+                    "path": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "$ref": "#/components/schemas/AttributeMap"
+                    }
+                }
+            },
+            "PatchTenantParams": {
+                "type": "object",
+                "properties": {
+                    "tenantPatch": {
+                        "$ref": "#/components/schemas/PatchOperation"
+                    }
+                }
+            },
+            "PatchTenantResponseContent": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "Informing of request's status."
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "The message indicating the information of action of the model."
+                    }
+                }
+            },
+            "PatchTenantsParams": {
+                "type": "object",
+                "properties": {
+                    "tenantsPatch": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PatchOperation"
+                        }
+                    }
+                }
+            },
+            "PatchTenantsResponseContent": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "Informing of request's status."
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "The message indicating the information of action of the model."
+                    }
+                }
+            },
             "PutScript_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The document"
             },
             "RankEval_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The ranking evaluation search definition, including search requests, document ratings and ranking metric definition."
             },
             "RefreshEnum": {
                 "type": "string",
@@ -28919,7 +29278,8 @@
                 ]
             },
             "Reindex_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The search definition using the Query DSL and the prototype for the index request."
             },
             "Relation": {
                 "type": "string",
@@ -28975,6 +29335,7 @@
             },
             "RemoteStoreRestore_BodyParams": {
                 "type": "object",
+                "description": "Comma-separated list of index IDs",
                 "properties": {
                     "indices": {
                         "type": "array",
@@ -28988,7 +29349,8 @@
                 ]
             },
             "RenderSearchTemplate_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The search definition template and its params"
             },
             "SampleType": {
                 "type": "string",
@@ -29000,13 +29362,16 @@
                 ]
             },
             "ScriptsPainlessExecute_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The script to execute"
             },
             "Scroll_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The scroll ID if not passed by URL or query parameter."
             },
             "SearchTemplate_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The search definition template and its params"
             },
             "SearchType": {
                 "type": "string",
@@ -29028,6 +29393,7 @@
             },
             "Search_BodyParams": {
                 "type": "object",
+                "description": "The search definition using the Query DSL",
                 "properties": {
                     "docvalue_fields": {
                         "type": "string"
@@ -29187,16 +29553,20 @@
                 }
             },
             "SnapshotClone_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The snapshot clone definition"
             },
             "SnapshotCreateRepository_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The repository definition"
             },
             "SnapshotCreate_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The snapshot definition"
             },
             "SnapshotRestore_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "Details of what to restore"
             },
             "Status_Member": {
                 "type": "string",
@@ -29216,8 +29586,26 @@
                     "always"
                 ]
             },
+            "Tenant": {
+                "type": "object",
+                "properties": {
+                    "reserved": {
+                        "type": "boolean"
+                    },
+                    "hidden": {
+                        "type": "boolean"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "static": {
+                        "type": "boolean"
+                    }
+                }
+            },
             "Termvectors_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "Define parameters and or supply a document to get termvectors for. See documentation."
             },
             "Time": {
                 "type": "string",
@@ -29245,10 +29633,12 @@
                 }
             },
             "UpdateByQuery_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The search definition using the Query DSL"
             },
             "Update_BodyParams": {
-                "type": "object"
+                "type": "object",
+                "description": "The request definition requires either `script` or partial `doc`"
             },
             "UserDefinedObjectStructure": {
                 "type": "object",
