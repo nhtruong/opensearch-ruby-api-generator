@@ -17,7 +17,7 @@ require_relative 'index_generator'
 
 # Generate API endpoints for OpenSearch Ruby client
 class ApiGenerator
-  HTTP_VERBS = %w[get post put patch delete patch options].freeze
+  HTTP_VERBS = %w[get post put patch delete patch head].freeze
   EXISTING_NAMESPACES = Set.new(%w[
                                   clusters
                                   nodes
