@@ -18,6 +18,32 @@ class ActionGenerator < BaseGenerator
   attr_reader :module_name, :method_name, :valid_params_constant_name,
               :method_description, :argument_descriptions
 
+  # Actions that use perform_request_simple_ignore_404
+  SIMPLE_IGNORE_404 = %w[exists
+                         indices.exists
+                         indices.exists_alias
+                         indices.exists_template
+                         indices.exists_type].to_set.freeze
+
+  # Actions that use perform_request_complex_ignore_404
+  COMPLEX_IGNORE_404 = %w[delete
+                          get
+                          indices.flush_synced
+                          indices.delete_template
+                          indices.delete
+                          security.get_role
+                          security.get_user
+                          snapshot.status
+                          snapshot.get
+                          snapshot.get_repository
+                          snapshot.delete_repository
+                          snapshot.delete
+                          update
+                          watcher.delete_watch].to_set.freeze
+
+  # Actions that use perform_request_ping
+  PING = %w[ping].to_set.freeze
+
   # @param [Pathname] output_folder
   # @param [Action] action
   def initialize(output_folder, action)
@@ -66,6 +92,14 @@ class ActionGenerator < BaseGenerator
   def listify_query_params
     @action.query_params.select(&:array?).map { |p| { name: p.name } }
            .tap { |args| args.first&.[]=('_blank_line', true) }
+  end
+
+  def perform_request
+    args = 'method, url, params, body, headers'
+    return "perform_request_simple_ignore_404(#{args})" if SIMPLE_IGNORE_404.include?(@action.group)
+    return "perform_request_complex_ignore_404(#{args}, arguments)" if COMPLEX_IGNORE_404.include?(@action.group)
+    return "perform_request_ping(#{args})" if PING.include?(@action.group)
+    "perform_request(#{args}).body"
   end
 
   private

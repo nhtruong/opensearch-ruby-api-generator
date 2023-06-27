@@ -41,6 +41,6 @@ module Actions
     params[:{{name}}] = Utils.__listify(params[:{{name}}]) if params[:{{name}}]
     {{/listify_query_params}}
 
-    perform_request(method, url, params, body, headers).body
+    {{{perform_request}}}
   end
 end

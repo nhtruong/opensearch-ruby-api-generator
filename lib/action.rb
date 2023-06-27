@@ -15,13 +15,14 @@ require_relative 'parameter'
 
 # A collection of operations that comprise a single API Action
 class Action
-  attr_reader :name, :namespace, :http_verbs, :urls, :description,
+  attr_reader :group, :name, :namespace, :http_verbs, :urls, :description,
               :parameters, :path_params, :query_params,
               :body, :body_description, :body_required
 
   # @group [String] operation_group
   # @param [Array<Operation>] operations
   def initialize(group, operations)
+    @group = group
     @name, @namespace = group.split('.').reverse
     @operations = operations
     @http_verbs = operations.map(&:http_verb).uniq
