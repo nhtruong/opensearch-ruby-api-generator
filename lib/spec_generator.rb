@@ -26,6 +26,32 @@ class SpecGenerator < BaseGenerator
     @http_verb = action.http_verbs.sort.first.upcase
   end
 
+  def url_path
+    action.urls.max_by(&:length).split('/').select(&:present?).map do |component|
+      next component unless component.start_with?('{')
+      param = action.path_params.find { |p| p.name == component[/{(.+)}/, 1] }
+      param.example_value standalone: false
+    end.join('/')
+  end
+
+  def query_params
+    action.query_params.map do |p|
+      { pre: ' ',
+        key: p.name,
+        value: p.example_value,
+        post: ',' }
+    end.tap do |params|
+      params.first&.update(pre: '{ ')
+      params.last&.update(post: ' },')
+    end
+  end
+
+  def body
+    return '{}' if action.required_components.include?('body')
+    return 'nil' if action.body.nil?
+    http_verb.in?(%w[PUT POST PATCH]) ? '{}' : 'nil'
+  end
+
   private
 
   def output_file

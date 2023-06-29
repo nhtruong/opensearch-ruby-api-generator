@@ -9,14 +9,11 @@ describe 'client{{#namespace}}.{{namespace}}{{/namespace}}#{{name}}' do
   let(:expected_args) do
     [
       '{{http_verb}}',
-      'movies,books/_search/point_in_time',
       '{{url_path}}',
-      { keep_alive: '1m',
-      preference: :random,
-      routing: :route,
-      expand_wildcards: :open,
-      allow_partial_pit_creation: false },
-      nil
+      {{#query_params}}
+      {{pre}}{{key}}: {{{value}}}{{post}}
+      {{/query_params}}
+      {{body}}
     ]
   end
 
@@ -29,6 +26,14 @@ describe 'client{{#namespace}}.{{namespace}}{{/namespace}}#{{name}}' do
       client.create_pit(keep_alive: '1m')
     end.to raise_exception(ArgumentError)
   end
+
+  {{#required_components}}
+  it 'requires the :{{arg}} argument' do
+    expect do
+      client.create_pit({{others}})
+    end.to raise_exception(ArgumentError)
+  end
+  {{/required_components}}
 
   it 'requires the :index argument' do
     expect do

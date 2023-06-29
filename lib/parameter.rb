@@ -42,4 +42,21 @@ class Parameter < Openapi3Parser::Node::Parameter
   def ruby_type
     type.capitalize
   end
+
+  def example_value(standalone: true)
+    case type
+    when 'string'
+      standalone ? ':foo' : 'foo'
+    when 'integer'
+      1
+    when 'boolean'
+      true
+    when 'array'
+      standalone ? "'foo,bar'" : "foo,bar"
+    when 'time'
+      "'1m'"
+    else
+      raise "Unknown type #{type}"
+    end
+  end
 end
