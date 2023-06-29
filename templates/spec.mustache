@@ -1,0 +1,55 @@
+{{license_header}}
+{{generated_code_warning}}
+
+# frozen_string_literal: true
+
+require_relative '{{#namespace}}../{{/namespace}}../../../spec_helper'
+
+describe 'client{{#namespace}}.{{namespace}}{{/namespace}}#{{name}}' do
+  let(:expected_args) do
+    [
+      '{{http_verb}}',
+      'movies,books/_search/point_in_time',
+      '{{url_path}}',
+      { keep_alive: '1m',
+      preference: :random,
+      routing: :route,
+      expand_wildcards: :open,
+      allow_partial_pit_creation: false },
+      nil
+    ]
+  end
+
+  let(:client) do
+    Class.new { include OpenSearch::API }.new
+  end
+
+  it 'requires the :index argument' do
+    expect do
+      client.create_pit(keep_alive: '1m')
+    end.to raise_exception(ArgumentError)
+  end
+
+  it 'requires the :index argument' do
+    expect do
+      client.create_pit(index: 'movies')
+    end.to raise_exception(ArgumentError)
+  end
+
+  it 'does not accept unregistered params' do
+    expect do
+      client.create_pit(index: 'movies', keep_alive: '1m', something: 42)
+    end.to raise_exception(ArgumentError)
+  end
+
+  it 'performs the request with all optional params' do
+    expect(client_double.create_pit(
+      index: %w[movies books],
+      keep_alive: '1m',
+      preference: :random,
+      routing: :route,
+      expand_wildcards: :open,
+      allow_partial_pit_creation: false
+    )).to eq({})
+  end
+end

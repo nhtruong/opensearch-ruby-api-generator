@@ -12,6 +12,7 @@
 require 'openapi3_parser'
 require_relative 'action'
 require_relative 'action_generator'
+require_relative 'spec_generator'
 require_relative 'namespace_generator'
 require_relative 'index_generator'
 
@@ -48,16 +49,12 @@ class ApiGenerator
   end
 
   def generate
-    api_folder = @gem_folder + 'lib/opensearch/api'
-    actions_folder = @gem_folder + 'lib/opensearch/api/actions'
-    namespace_folder = @gem_folder + 'lib/opensearch/api/namespaces'
-    unit_test_folder = @gem_folder + 'spec/opensearch/api/actions'
-
     namespaces = EXISTING_NAMESPACES.dup
     @actions.each do |action|
-      ActionGenerator.new(actions_folder, action).generate
-      NamespaceGenerator.new(namespace_folder, action.namespace).generate(namespaces)
+      ActionGenerator.new(@gem_folder + 'lib/opensearch/api/actions', action).generate
+      SpecGenerator.new(@gem_folder + 'spec/opensearch/api/actions', action).generate
+      NamespaceGenerator.new(@gem_folder + 'lib/opensearch/api/namespaces', action.namespace).generate(namespaces)
     end
-    IndexGenerator.new(api_folder, namespaces).generate
+    IndexGenerator.new(@gem_folder + 'lib/opensearch/api', namespaces).generate
   end
 end

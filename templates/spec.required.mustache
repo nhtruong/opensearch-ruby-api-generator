@@ -1,0 +1,5 @@
+it 'requires the :index argument' do
+  expect do
+    client.create_pit(index: 'movies')
+  end.to raise_exception(ArgumentError)
+end

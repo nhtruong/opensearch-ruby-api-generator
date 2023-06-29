@@ -20,5 +20,5 @@ AwesomePrint.irb!
 
 
 generator = ApiGenerator.new './api_specs/opensearch.openapi.json', './poc',
-                             version: '2.5', groups: nil
+                             version: '2.5', groups: ['create_pit', 'indices.create']
 generator.generate
