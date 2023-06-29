@@ -52,7 +52,27 @@ class SpecGenerator < BaseGenerator
     http_verb.in?(%w[PUT POST PATCH]) ? '{}' : 'nil'
   end
 
+  def required_components
+    action.required_components.map do |component|
+      { arg: component,
+        others: other_required_components(component) }
+    end.tap do |components|
+      components.last.update(blank_line: true)
+    end
+  end
+
   private
+
+  def other_required_components(component)
+    action.required_components.reject { |c| c == component }.map do |c|
+      "#{c}: #{arg_value(c)}"
+    end.join(', ')
+  end
+
+  def arg_value(component)
+    return body if component == 'body'
+    action.path_params.find { |p| p.name == component }&.example_value
+  end
 
   def output_file
     create_folder(*[@output_folder, @action.namespace].compact).join("#{@action.name}_spec.rb")

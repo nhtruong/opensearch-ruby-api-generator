@@ -20,33 +20,17 @@ describe 'client{{#namespace}}.{{namespace}}{{/namespace}}#{{name}}' do
   let(:client) do
     Class.new { include OpenSearch::API }.new
   end
-
-  it 'requires the :index argument' do
-    expect do
-      client.create_pit(keep_alive: '1m')
-    end.to raise_exception(ArgumentError)
-  end
-
   {{#required_components}}
+
   it 'requires the :{{arg}} argument' do
     expect do
-      client.create_pit({{others}})
+      client{{#namespace}}.{{namespace}}{{/namespace}}.{{name}}({{others}})
     end.to raise_exception(ArgumentError)
   end
+  {{#blank_line}}
+
+  {{/blank_line}}
   {{/required_components}}
-
-  it 'requires the :index argument' do
-    expect do
-      client.create_pit(index: 'movies')
-    end.to raise_exception(ArgumentError)
-  end
-
-  it 'does not accept unregistered params' do
-    expect do
-      client.create_pit(index: 'movies', keep_alive: '1m', something: 42)
-    end.to raise_exception(ArgumentError)
-  end
-
   it 'performs the request with all optional params' do
     expect(client_double.create_pit(
       index: %w[movies books],
