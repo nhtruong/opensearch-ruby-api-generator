@@ -43,20 +43,27 @@ class Parameter < Openapi3Parser::Node::Parameter
     type.capitalize
   end
 
-  def example_value(standalone: true)
-    case type
-    when 'string'
-      standalone ? ':foo' : 'foo'
-    when 'integer'
-      1
-    when 'boolean'
-      true
-    when 'array'
-      standalone ? "'foo,bar'" : "foo,bar"
-    when 'time'
-      "'1m'"
-    else
-      raise "Unknown type #{type}"
-    end
+  def example_value
+    return 'songs' if type == 'string'
+    return 42 if type == 'integer'
+    return true if type == 'boolean'
+    return %w[books movies] if type == 'array'
+    return '1m' if type == 'time'
+    raise "Unknown type #{type}"
+  end
+
+  def path_value
+    type == 'array' ? example_value.join(',') : example_value
+  end
+
+  def raw_value
+    return "'#{example_value}'" if type == 'string'
+    example_value
+  end
+
+  def formatted_value
+    return "'#{example_value.join(',')}'" if type == 'array'
+    return "'#{example_value}'" if type == 'string'
+    example_value
   end
 end
