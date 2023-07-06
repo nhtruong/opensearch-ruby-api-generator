@@ -52,18 +52,19 @@ class Parameter < Openapi3Parser::Node::Parameter
     raise "Unknown type #{type}"
   end
 
-  def path_value
+  def expected_path_value
     type == 'array' ? example_value.join(',') : example_value
   end
 
-  def raw_value
-    return "'#{example_value}'" if type == 'string'
+  def client_double_value
+    return "'#{example_value}'" if type.in?(%w[string time])
+    return "%w[#{example_value.join(' ')}]" if type == 'array'
     example_value
   end
 
-  def formatted_value
+  def expected_query_value
+    return "'#{example_value}'" if type.in?(%w[string time])
     return "'#{example_value.join(',')}'" if type == 'array'
-    return "'#{example_value}'" if type == 'string'
     example_value
   end
 end

@@ -26,20 +26,19 @@ class SpecGenerator < BaseGenerator
     @http_verb = action.http_verbs.sort.first.upcase
   end
 
-  def url_path
+  def expected_url_path
     action.urls.max_by(&:length).split('/').select(&:present?).map do |component|
       next component unless component.start_with?('{')
       param = action.path_params.find { |p| p.name == component[/{(.+)}/, 1] }
-      param.path_value
+      param.expected_path_value
     end.join('/')
   end
 
-  def query_params
+  def expected_query_params
     action.query_params.map do |p|
       { pre: ' ',
         key: p.name,
-        expected_value: p.formatted_value,
-        value: p.example_value,
+        value: p.expected_query_value,
         post: ',' }
     end.tap do |params|
       params.first&.update(pre: '{ ')
@@ -63,7 +62,7 @@ class SpecGenerator < BaseGenerator
   end
 
   def client_double_args
-    args = (action.path_params + action.query_params).map { |p| { key: p.name, value: p.raw_value } }
+    args = (action.path_params + action.query_params).map { |p| { key: p.name, value: p.client_double_value } }
     args += [{ key: 'body', value: '{}' }] unless body == 'nil'
     args.last&.update(last: true)
     args

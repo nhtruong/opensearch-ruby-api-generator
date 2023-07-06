@@ -9,10 +9,10 @@ describe 'client{{#namespace}}.{{namespace}}{{/namespace}}#{{name}}' do
   let(:expected_args) do
     [
       '{{http_verb}}',
-      '{{url_path}}',
-      {{#query_params}}
-      {{pre}}{{key}}: {{{expected_value}}}{{post}}
-      {{/query_params}}
+      '{{expected_url_path}}',
+      {{#expected_query_params}}
+      {{pre}}{{key}}: {{{value}}}{{post}}
+      {{/expected_query_params}}
       {{body}}
     ]
   end
