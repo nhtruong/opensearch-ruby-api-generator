@@ -10,6 +10,10 @@ module Actions
   {{#argument_descriptions}}
   # @option arguments [{{data_type}}] :{{name}} {{#required}}*Required* {{/required}}{{#deprecated}}DEPRECATED {{/deprecated}}{{#default}}(default: {{default}}) {{/default}}{{description}}
   {{/argument_descriptions}}
+  {{#external_docs}}
+  #
+  # {API Reference}[{{{external_docs}}}]
+  {{/external_docs}}
   def {{method_name}}(arguments = {})
     {{#required_args}}
     raise ArgumentError, "Required argument '{{arg}}' missing" unless arguments[:{{arg}}]

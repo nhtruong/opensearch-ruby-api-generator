@@ -15,7 +15,7 @@ require_relative 'parameter'
 
 # A collection of operations that comprise a single API Action
 class Action
-  attr_reader :group, :name, :namespace, :http_verbs, :urls, :description,
+  attr_reader :group, :name, :namespace, :http_verbs, :urls, :description, :external_docs,
               :parameters, :path_params, :query_params,
               :body, :body_description, :body_required
 
@@ -28,6 +28,8 @@ class Action
     @http_verbs = operations.map(&:http_verb).uniq
     @urls = operations.map(&:url).uniq
     @description = operations.map(&:description).find(&:present?)
+    @external_docs = operations.map(&:external_docs).find(&:present?)
+    @external_docs = nil if @external_docs == 'https://opensearch.org/docs/latest'
     @body = operations.map(&:request_body).find(&:present?)
     @parameters = operations.flat_map(&:parameters).uniq(&:name)
     @path_params = @parameters.select { |p| p.in == 'path' }

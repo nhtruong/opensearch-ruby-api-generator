@@ -16,7 +16,7 @@ require_relative 'action'
 class ActionGenerator < BaseGenerator
   self.template_file = './templates/action.mustache'
   attr_reader :module_name, :method_name, :valid_params_constant_name,
-              :method_description, :argument_descriptions
+              :method_description, :argument_descriptions, :external_docs
 
   # Actions that use perform_request_simple_ignore_404
   SIMPLE_IGNORE_404 = %w[exists
@@ -50,6 +50,7 @@ class ActionGenerator < BaseGenerator
     super(output_folder)
     @action = action
     @urls = action.urls.map { |u| u.split('/').select(&:present?) }.uniq
+    @external_docs = action.external_docs
     @module_name = action.namespace&.camelize
     @method_name = action.name.underscore
     @valid_params_constant_name = "#{action.name.upcase}_QUERY_PARAMS"

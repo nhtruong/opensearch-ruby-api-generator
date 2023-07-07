@@ -17,7 +17,7 @@ require_relative 'parameter'
 # Wrapper for Openapi3Parser::Node::Operation that adds extra info unique to OpenSearch
 class Operation < Openapi3Parser::Node::Operation
 
-  attr_reader :url, :http_verb, :group, :version_added, :version_removed, :version_deprecated
+  attr_reader :url, :http_verb, :group, :version_added, :version_removed, :version_deprecated, :external_docs
 
   # @param [Openapi3Parser::Node::Operation] spec Operation Spec
   # @param [String] url
@@ -30,6 +30,7 @@ class Operation < Openapi3Parser::Node::Operation
     @version_added = Version.new(spec['x-version-added'] || '0.0.0')
     @version_removed = Version.new(spec['x-version-removed'] || '999.999.999')
     @version_deprecated = Version.new spec['x-version-deprecated']
+    @external_docs = spec['externalDocs']&.[]('url')
   end
 
   def parameters
