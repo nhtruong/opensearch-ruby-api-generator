@@ -1,52 +1,49 @@
-{{license_header}}
-{{legacy_license_header}}
-{{generated_code_warning}}
+{{{license_header}}}
+{{{legacy_license_header}}}
+{{{generated_code_warning}}}
 
 # frozen_string_literal: true
 
-require "cgi"
-require "multi_json"
+require 'opensearch/api/namespace/common'
+require 'opensearch/api/utils'
+require 'opensearch/api/actions/params_registry'
 
-require "opensearch/api/version"
-require "opensearch/api/namespace/common"
-require "opensearch/api/utils"
-require "opensearch/api/actions/params_registry"
-
-Dir[ File.expand_path('../api/actions/**/params_registry.rb', __FILE__) ].each   { |f| require f }
-Dir[ File.expand_path('../api/actions/**/*.rb', __FILE__) ].each   { |f| require f }
-Dir[ File.expand_path('../api/namespace/**/*.rb', __FILE__) ].each { |f| require f }
+Dir[File.expand_path('api/actions/**/params_registry.rb', __dir__)].sort.each   { |f| require f }
+Dir[File.expand_path('api/actions/**/*.rb', __dir__)].sort.each   { |f| require f }
+Dir[File.expand_path('api/namespace/**/*.rb', __dir__)].sort.each { |f| require f }
 
 module OpenSearch
   module API
     DEFAULT_SERIALIZER = MultiJson
 
     COMMON_PARAMS = [
-    :ignore,                        # Client specific parameters
-    :index, :id,                    # :index/:id
-    :body,                          # Request body
-    :node_id,                       # Cluster
-    :name,                          # Alias, template, settings, warmer, ...
-    :field                          # Get field mapping
+      :ignore,                        # Client specific parameters
+      :index, :id,                    # :index/:id
+      :body,                          # Request body
+      :node_id,                       # Cluster
+      :name,                          # Alias, template, settings, warmer, ...
+      :field                          # Get field mapping
     ]
 
     COMMON_QUERY_PARAMS = [
-    :ignore,                        # Client specific parameters
-    :format,                        # Search, Cat, ...
-    :pretty,                        # Pretty-print the response
-    :human,                         # Return numeric values in human readable format
-    :filter_path,                   # Filter the JSON response
-    :opaque_id                      # Use X-Opaque-Id
+      :ignore,                        # Client specific parameters
+      :format,                        # Search, Cat, ...
+      :pretty,                        # Pretty-print the response
+      :human,                         # Return numeric values in human readable format
+      :filter_path,                   # Filter the JSON response
+      :opaque_id                      # Use X-Opaque-Id
     ]
 
-    HTTP_GET          = 'GET'.freeze
-    HTTP_HEAD         = 'HEAD'.freeze
-    HTTP_POST         = 'POST'.freeze
-    HTTP_PUT          = 'PUT'.freeze
-    HTTP_DELETE       = 'DELETE'.freeze
+    HTTP_GET          = 'GET'
+    HTTP_HEAD         = 'HEAD'
+    HTTP_PATCH        = 'PATCH'
+    HTTP_POST         = 'POST'
+    HTTP_PUT          = 'PUT'
+    HTTP_DELETE       = 'DELETE'
 
-    UNDERSCORE_SEARCH = '_search'.freeze
-    UNDERSCORE_ALL    = '_all'.freeze
-    DEFAULT_DOC       = '_doc'.freeze
+    UNDERSCORE_SEARCH = '_search'
+    UNDERSCORE_ALL    = '_all'
+    DEFAULT_DOC       = '_doc'
 
     # Auto-include all namespaces in the receiver
     def self.included(base)
@@ -69,4 +66,3 @@ module OpenSearch
     end
   end
 end
-

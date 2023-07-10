@@ -14,6 +14,7 @@ require_relative 'base_generator'
 # Generate a Namespace file via Mustache
 class NamespaceGenerator < BaseGenerator
   self.template_file = './templates/namespace.mustache'
+  attr_reader :namespace
 
   def initialize(output_folder, namespace)
     super(output_folder)

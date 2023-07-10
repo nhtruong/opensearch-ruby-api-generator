@@ -20,7 +20,7 @@ require_relative 'index_generator'
 class ApiGenerator
   HTTP_VERBS = %w[get post put patch delete patch head].freeze
   EXISTING_NAMESPACES = Set.new(%w[
-                                  clusters
+                                  cluster
                                   nodes
                                   indices
                                   ingest
@@ -53,8 +53,8 @@ class ApiGenerator
     @actions.each do |action|
       ActionGenerator.new(@gem_folder + 'lib/opensearch/api/actions', action).generate
       SpecGenerator.new(@gem_folder + 'spec/opensearch/api/actions', action).generate
-      NamespaceGenerator.new(@gem_folder + 'lib/opensearch/api/namespaces', action.namespace).generate(namespaces)
+      NamespaceGenerator.new(@gem_folder + 'lib/opensearch/api/namespace', action.namespace).generate(namespaces)
     end
-    IndexGenerator.new(@gem_folder + 'lib/opensearch/api', namespaces).generate
+    IndexGenerator.new(@gem_folder + 'lib/opensearch', namespaces).generate
   end
 end

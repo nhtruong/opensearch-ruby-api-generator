@@ -1,5 +1,5 @@
-{{license_header}}
-{{generated_code_warning}}
+{{{license_header}}}
+{{{generated_code_warning}}}
 
 # frozen_string_literal: true
 
@@ -10,7 +10,9 @@ module OpenSearch
 
       # Client for the "{{namespace}}" namespace (includes the {{module_name}}::Actions methods)
       class {{client_name}}
-        include Common::Client, Common::Client::Base, {{module_name}}::Actions
+        include {{module_name}}::Actions
+        include Common::Client
+        include Common::Client::Base
       end
 
       # Proxy method for {{client_name}}, available in the receiving object

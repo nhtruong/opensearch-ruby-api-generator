@@ -1,5 +1,5 @@
-{{license_header}}
-{{generated_code_warning}}
+{{{license_header}}}
+{{{generated_code_warning}}}
 
 # frozen_string_literal: true
 
@@ -13,7 +13,8 @@ describe 'client{{#namespace}}.{{namespace}}{{/namespace}}#{{name}}' do
       {{#expected_query_params}}
       {{pre}}{{key}}: {{{value}}}{{post}}
       {{/expected_query_params}}
-      {{body}}
+      {{body}},
+      {}
     ]
   end
 
@@ -24,7 +25,7 @@ describe 'client{{#namespace}}.{{namespace}}{{/namespace}}#{{name}}' do
 
   it 'requires the :{{arg}} argument' do
     expect do
-      client{{#namespace}}.{{namespace}}{{/namespace}}.{{name}}({{others}})
+      client{{#namespace}}.{{namespace}}{{/namespace}}.{{name}}{{{others}}}
     end.to raise_exception(ArgumentError)
   end
   {{#blank_line}}

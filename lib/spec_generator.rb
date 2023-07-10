@@ -36,7 +36,7 @@ class SpecGenerator < BaseGenerator
 
   def expected_query_params
     action.query_params.map do |p|
-      { pre: ' ',
+      { pre: '  ',
         key: p.name,
         value: p.expected_query_value,
         post: ',' }
@@ -71,9 +71,10 @@ class SpecGenerator < BaseGenerator
   private
 
   def other_required_components(component)
-    action.required_components.reject { |c| c == component }.map do |c|
+    others = action.required_components.reject { |c| c == component }.map do |c|
       "#{c}: #{arg_value(c)}"
     end.join(', ')
+    "(#{others})" unless others.empty?
   end
 
   def arg_value(component)
