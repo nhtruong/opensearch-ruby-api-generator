@@ -48,11 +48,11 @@ module OpenSearch
     # Auto-include all namespaces in the receiver
     def self.included(base)
       base.send :include,
-        OpenSearch::API::Common,
-        OpenSearch::API::Actions,
-        {{#namespace_modules}}
-        {{name}}{{comma}}
-        {{/namespace_modules}}
+                OpenSearch::API::Common,
+                OpenSearch::API::Actions,
+                {{#namespace_modules}}
+                {{name}}{{comma}}
+                {{/namespace_modules}}
     end
 
     # The serializer class
