@@ -27,8 +27,6 @@ class SpecGenerator < BaseGenerator
     action.urls.max_by(&:length).split('/').select(&:present?).map do |component|
       next component unless component.start_with?('{')
       param = action.path_params.find { |p| p.name == component[/{(.+)}/, 1] }
-      puts action.path_params.map(&:name).join(', ')
-      puts action.urls.max_by(&:length)
       param.expected_path_value
     end.join('/')
   end

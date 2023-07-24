@@ -27,14 +27,16 @@ class Action
     @description = operations.map(&:description).find(&:present?)
     @external_docs = operations.map(&:external_docs).find(&:present?)
     @external_docs = nil if @external_docs == 'https://opensearch.org/docs/latest'
-    @body = operations.map(&:request_body).find(&:present?)
-    @parameters = operations.flat_map(&:parameters).uniq(&:name)
-    @path_params = @parameters.select { |p| p.in == 'path' }
-    @query_params = @parameters.select { |p| p.in == 'query' }
 
+    dup_params = operations.flat_map(&:parameters)
+    @path_params = dup_params.select { |p| p.in == 'path' }
+    @query_params = dup_params.select { |p| p.in == 'query' }
+    @parameters = dup_params.uniq(&:name)
     @parameters.each { |p| p.spec.node_data['required'] = p.name.in?(required_components) }
+
+    @body = operations.map(&:request_body).find(&:present?)
     @body_required = 'body'.in?(required_components)
-    @body_description = @body.content['application/json'].schema.description if @body.present?
+    @body_description = @body&.content['application/json'].schema.description if @body.present?
   end
 
   def required_components
