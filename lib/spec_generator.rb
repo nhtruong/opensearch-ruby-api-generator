@@ -27,6 +27,8 @@ class SpecGenerator < BaseGenerator
     action.urls.max_by(&:length).split('/').select(&:present?).map do |component|
       next component unless component.start_with?('{')
       param = action.path_params.find { |p| p.name == component[/{(.+)}/, 1] }
+      puts action.path_params.map(&:name).join(', ')
+      puts action.urls.max_by(&:length)
       param.expected_path_value
     end.join('/')
   end
@@ -54,7 +56,7 @@ class SpecGenerator < BaseGenerator
       { arg: component,
         others: other_required_components(component) }
     end.tap do |components|
-      components.last.update(blank_line: true)
+      components.last&.update(blank_line: true)
     end
   end
 
@@ -76,7 +78,7 @@ class SpecGenerator < BaseGenerator
 
   def arg_value(component)
     return body if component == 'body'
-    action.path_params.find { |p| p.name == component }&.perform_request_value
+    action.path_params.find { |p| p.name == component }&.client_double_value
   end
 
   def output_file

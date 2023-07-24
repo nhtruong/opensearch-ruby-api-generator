@@ -16,12 +16,12 @@ class Action
               :parameters, :path_params, :query_params,
               :body, :body_description, :body_required
 
-  # @group [String] operation_group
   # @param [Array<Operation>] operations
-  def initialize(group, operations)
-    @group = group
-    @name, @namespace = group.split('.').reverse
+  def initialize(operations)
     @operations = operations
+    @group = operations.first.group
+    @name = operations.first.action
+    @namespace = operations.first.namespace
     @http_verbs = operations.map(&:http_verb).uniq
     @urls = operations.map(&:url).uniq
     @description = operations.map(&:description).find(&:present?)

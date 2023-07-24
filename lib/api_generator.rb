@@ -30,28 +30,39 @@ class ApiGenerator
                                   shutdown
                                 ]).freeze
 
-  # @param [string] @gem_folder location of the API Gem folder
-  # @param [string] version target OpenSearch version (e.g. 2.5)
-  # @param [Array<String>] groups list of operation groups to generate (optional)
-  def initialize(openapi_spec, gem_folder, version:, groups: nil)
-    @gem_folder = Pathname gem_folder
-    operations = Openapi3Parser.load_file(openapi_spec).paths.flat_map do |url, path|
+  # @param [string] openapi_spec location of the OpenSearch API spec file [required]
+  def initialize(openapi_spec)
+    @spec = Openapi3Parser.load_file(openapi_spec)
+  end
+
+  # @param [string] output location of the API Gem folder (default to the parent folder of the generator)
+  # @param [string] version target OpenSearch version to generate like "2.5" or "3.0" (Default to "latest")
+  # @param [string] namespace namespace to generate (Default to all namespaces. Use '' for root)
+  # @param [Array<string>] actions list of actions in the specified namespace to generate (Default to all actions)
+  def generate(output:, version: 'latest', namespace: nil, actions: nil)
+    gem_folder = Pathname output
+    namespaces = EXISTING_NAMESPACES.dup
+    target_actions(version, namespace, actions).each do |action|
+      ActionGenerator.new(gem_folder + 'lib/opensearch/api/actions', action).generate
+      SpecGenerator.new(gem_folder + 'spec/opensearch/api/actions', action).generate
+      NamespaceGenerator.new(gem_folder + 'lib/opensearch/api/namespace', action.namespace).generate(namespaces)
+    end
+    IndexGenerator.new(gem_folder + 'lib/opensearch', namespaces).generate
+  end
+
+  private
+
+  def target_actions(version, namespace, actions)
+    namespace = namespace.to_s
+    actions = Array(actions).map(&:to_s).to_set unless actions.nil?
+
+    operations = @spec.paths.flat_map do |url, path|
       path.to_h.slice(*HTTP_VERBS).compact.map do |verb, operation_spec|
         operation = Operation.new operation_spec, url, verb
-        operation.part_of?(version, groups) ? operation : nil
+        operation.part_of?(version, namespace, actions) ? operation : nil
       end
     end.compact
 
-    @actions = operations.group_by(&:group).map { |group, ops| Action.new group, ops }
-  end
-
-  def generate
-    namespaces = EXISTING_NAMESPACES.dup
-    @actions.each do |action|
-      ActionGenerator.new(@gem_folder + 'lib/opensearch/api/actions', action).generate
-      SpecGenerator.new(@gem_folder + 'spec/opensearch/api/actions', action).generate
-      NamespaceGenerator.new(@gem_folder + 'lib/opensearch/api/namespace', action.namespace).generate(namespaces)
-    end
-    IndexGenerator.new(@gem_folder + 'lib/opensearch', namespaces).generate
+    operations.group_by(&:group).map { |group, ops| Action.new ops }
   end
 end
