@@ -19,8 +19,13 @@ class Parameter < Openapi3Parser::Node::Parameter
     @spec = spec
   end
 
+
   def type
     schema['x-data-type'] || schema&.type
+  end
+
+  def ruby_type
+    type.capitalize
   end
 
   def array?
@@ -34,10 +39,6 @@ class Parameter < Openapi3Parser::Node::Parameter
   def deprecated?
     return false unless schema.present?
     schema.deprecated?
-  end
-
-  def ruby_type
-    type.capitalize
   end
 
   def example_value

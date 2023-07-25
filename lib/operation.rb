@@ -32,10 +32,14 @@ class Operation < Openapi3Parser::Node::Operation
     @external_docs = spec['externalDocs']&.[]('url')
   end
 
+  # @return [Array<Parameter>] collection of path and query parameters
   def parameters
     @parameters ||= super.map { |p| Parameter.new(p) }
   end
 
+  # @param [String] version is the operation part of this version?
+  # @param [String | nil] namespace is the operation part of this namespace?
+  # @param [Array<String> | nil] actions is the operation part of any of these actions?
   def part_of?(version, namespace, actions)
     version = Version.new(version)
     part_of_version = version_added <= version && version < version_removed
