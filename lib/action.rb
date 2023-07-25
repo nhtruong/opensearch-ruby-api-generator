@@ -30,8 +30,9 @@ class Action
 
     dup_params = operations.flat_map(&:parameters)
     @path_params = dup_params.select { |p| p.in == 'path' }
-    @query_params = dup_params.select { |p| p.in == 'query' }
-    @parameters = dup_params.uniq(&:name)
+    path_param_names = @path_params.map(&:name).to_set
+    @query_params = dup_params.select { |p| p.in == 'query' && !path_param_names.include?(p.name) }
+    @parameters = @path_params + @query_params
     @parameters.each { |p| p.spec.node_data['required'] = p.name.in?(required_components) }
 
     @body = operations.map(&:request_body).find(&:present?)
@@ -39,6 +40,8 @@ class Action
     @body_description = @body&.content['application/json'].schema.description if @body.present?
   end
 
+  # @return [Set<String>] The names of input components that are required by the action.
+  # A component is considered required if it is required by all operations that make up the action.
   def required_components
     @required_components ||= @operations.map do |op|
       set = Set.new(op.parameters.select(&:required?).map(&:name))
