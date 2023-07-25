@@ -11,7 +11,7 @@ class Version
   include Comparable
   attr_reader :numbers
 
-  # @param [string] version_str
+  # @param [String, NilClass] version_str
   def initialize(version_str)
     @version_str = version_str
     @numbers = version_str&.split('.')&.map(&:to_i)
@@ -24,10 +24,6 @@ class Version
       return -1 if self_ < other_
     end
     0
-  end
-
-  def to_s
-    @version_str
   end
 
   def nil?

@@ -39,10 +39,10 @@ class Operation < Openapi3Parser::Node::Operation
 
   # @param [String] version is the operation part of this version?
   # @param [String, NilClass] namespace is the operation part of this namespace?
-  # @param [Array<String>, NilClass] actions is the operation part of any of these actions?
+  # @param [Set<String>, NilClass] actions is the operation part of any of these actions?
   def part_of?(version, namespace, actions)
     version = Version.new(version)
-    part_of_version = version_added <= version && version < version_removed
+    part_of_version = version.nil? || (version_added <= version && version < version_removed)
     part_of_namespace = namespace.nil? || @namespace == namespace || (@namespace.nil? && namespace == '')
     part_of_actions = actions.nil? || actions.include?(action)
     part_of_version && part_of_namespace && part_of_actions

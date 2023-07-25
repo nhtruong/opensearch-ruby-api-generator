@@ -30,16 +30,16 @@ class ApiGenerator
                                   shutdown
                                 ]).freeze
 
-  # @param [string] openapi_spec location of the OpenSearch API spec file [required]
+  # @param [String] openapi_spec location of the OpenSearch API spec file [required]
   def initialize(openapi_spec)
     @spec = Openapi3Parser.load_file(openapi_spec)
   end
 
-  # @param [string] output location of the API Gem folder (default to the parent folder of the generator)
-  # @param [string] version target OpenSearch version to generate like "2.5" or "3.0" (Default to "latest")
-  # @param [string] namespace namespace to generate (Default to all namespaces. Use '' for root)
-  # @param [Array<string>] actions list of actions in the specified namespace to generate (Default to all actions)
-  def generate(output:, version: 'latest', namespace: nil, actions: nil)
+  # @param [String] output location of the API Gem folder (default to the parent folder of the generator)
+  # @param [String] version target OpenSearch version to generate like "2.5" or "3.0"
+  # @param [String] namespace namespace to generate (Default to all namespaces. Use '' for root)
+  # @param [Array<String>] actions list of actions in the specified namespace to generate (Default to all actions)
+  def generate(output:, version: nil, namespace: nil, actions: nil)
     gem_folder = Pathname output
     namespaces = EXISTING_NAMESPACES.dup
     target_actions(version, namespace, actions).each do |action|
