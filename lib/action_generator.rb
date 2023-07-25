@@ -79,7 +79,7 @@ class ActionGenerator < BaseGenerator
   end
 
   def path_params
-    @action.path_params.map { |p| { name: p.name, listify: p.array? } }
+    @action.path_params.map { |p| { name: p.name, listify: p.is_array } }
            .tap { |args| args.last&.[]=('_blank_line', true) }
   end
 
@@ -88,7 +88,7 @@ class ActionGenerator < BaseGenerator
   end
 
   def listify_query_params
-    @action.query_params.select(&:array?).map { |p| { name: p.name } }
+    @action.query_params.select(&:is_array).map { |p| { name: p.name } }
            .tap { |args| args.first&.[]=('_blank_line', true) }
   end
 
