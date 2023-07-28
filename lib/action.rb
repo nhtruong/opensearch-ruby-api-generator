@@ -37,7 +37,7 @@ class Action
 
     @body = operations.map(&:request_body).find(&:present?)
     @body_required = 'body'.in?(required_components)
-    @body_description = @body&.content['application/json'].schema.description if @body.present?
+    @body_description = @body&.content&.[]('application/json')&.schema&.description if @body.present?
   end
 
   # @return [Set<String>] The names of input components that are required by the action.

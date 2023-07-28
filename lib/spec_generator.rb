@@ -20,7 +20,7 @@ class SpecGenerator < BaseGenerator
   def initialize(output_folder, action)
     super(output_folder)
     @action = action
-    @http_verb = action.http_verbs.sort.first.upcase
+    @http_verb = action.http_verbs.min.upcase
   end
 
   def expected_url_path
