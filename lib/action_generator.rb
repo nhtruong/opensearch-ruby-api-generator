@@ -12,8 +12,9 @@ require_relative 'action'
 # Generate an API Action via Mustache
 class ActionGenerator < BaseGenerator
   self.template_file = './templates/action.mustache'
-  attr_reader :namespace, :capitalized_namespace, :method_name, :valid_params_constant_name,
-              :method_description, :argument_descriptions, :external_docs, :doc_method_name
+  attr_reader :namespace, :doc_namespace, :camelized_namespace, :function_name, :prototype_name,
+              :valid_params_constant_name,
+              :method_description, :external_docs, :doc_method_name
 
   # @param [Pathname] output_folder
   # @param [Action] action
@@ -23,12 +24,23 @@ class ActionGenerator < BaseGenerator
     @urls = action.urls.map { |u| u.split('/').select(&:present?) }.uniq
     @external_docs = action.external_docs
     @namespace = action.namespace
-    @capitalized_namespace = @namespace.titleize.gsub(/\s+/, '')
-    @method_name = action.name.underscore
+    @camelized_namespace = @namespace.camelcase
+    @doc_namespace = @namespace.titleize.gsub(/\s+/, '')
+    @prototype_name = action.name.camelcase(:lower)
+    @function_name = "#{@namespace.camelcase(:lower)}#{action.name.camelcase}Api"
     @valid_params_constant_name = "#{action.name.upcase}_QUERY_PARAMS"
     @method_description = action.description
-    @argument_descriptions = params_desc + [body_desc].compact
-    @doc_method_name = @method_name.titleize
+    @doc_method_name = @prototype_name&.titleize
+  end
+
+  def argument_descriptions
+    @action.parameters.map do |p|
+      { data_type: "{#{p.javascript_type}}",
+        name: p.required? ? "params.#{p.camel_name}" : "[params.#{p.camel_name}]",
+        description: p.description ? " - #{p.description}" : nil,
+        default: p.default,
+        deprecated: p.deprecated? }
+    end
   end
 
   def url_components
@@ -49,9 +61,12 @@ class ActionGenerator < BaseGenerator
     end
   end
 
-  def required_args
-    @action.required_components.map { |arg| { arg: } }
-           .tap { |args| args.last&.[]=('_blank_line', true) }
+  def required_params
+    @action.required_params.map do |p|
+      { camel_name: p.camel_name,
+        snake_name: p.snake_name,
+        has_snake_name: p.many_names }
+    end.tap { |args| args.last&.[]=('_blank_line', true) }
   end
 
   def path_params
@@ -80,23 +95,5 @@ class ActionGenerator < BaseGenerator
 
   def output_file
     create_folder(*[@output_folder, @action.namespace].compact).join("#{@action.name}.js")
-  end
-
-  def params_desc
-    @action.parameters.map do |p|
-      { data_type: "{#{p.javascript_type}}",
-        name: p.required? ? "[params.#{p.name}]" : "params.#{p.name}",
-        description: p.description.present? ? " - #{p.description}" : nil,
-        default: p.default,
-        deprecated: p.deprecated? }
-    end
-  end
-
-  def body_desc
-    return unless @action.body.present?
-    { data_type: '{Object}',
-      name: @action.body_required ? '[params.body]' : 'params.body',
-      description: @action.body_description,
-      required: @action.body_required }
   end
 end

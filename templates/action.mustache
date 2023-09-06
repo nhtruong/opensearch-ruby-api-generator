@@ -1,11 +1,11 @@
 /**
  * {{method_description}}
- * <br/> See Also: {@link {{external_docs}} - {{capitalized_namespace}} - {{doc_method_name}}}
+ * <br/> See Also: {@link {{external_docs}} - {{doc_namespace}} - {{doc_method_name}}}
  *
- * @memberOf API-{{capitalized_namespace}}
+ * @memberOf API-{{camelized_namespace}}
  *
  {{#argument_descriptions}}
- * @param {{{data_type}}} {{name}} {{#deprecated}}DEPRECATED {{/deprecated}}{{#default}}(default: {{default}}){{/default}}{{description}}
+ * @param {{{data_type}}} {{name}}{{#deprecated}}DEPRECATED {{/deprecated}}{{#default}}(default: {{default}}){{/default}}{{description}}
  {{/argument_descriptions}}
  *
  * @param {Object} options - Options for {@link Transport#request}
@@ -13,3 +13,15 @@
  *
  * @returns {{{double_curly}}}abort: function(), then: function(), catch: function()}|Promise<never>|*}
  */
+{{camelized_namespace}}Api.prototype.{{prototype_name}} = function {{function_name}}(params, options, callback) {
+  {{#required_params}}
+  if (params.{{camel_name}} == null{{#has_snake_name}} && params.{{snake_name}} == null{{/has_snake_name}}) {
+    const err = new this[kConfigurationError]('Missing required parameter: {{camel_name}}');
+    return handleError(err, callback);
+  }
+  {{#_blank_line}}
+
+  {{/_blank_line}}
+  {{/required_params}}
+  let { method, body, {{#path_params}}{{/path_params}} ...querystring } = params;
+};

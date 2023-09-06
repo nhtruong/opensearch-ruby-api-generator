@@ -9,6 +9,7 @@
 require_relative 'operation'
 require_relative 'version'
 require_relative 'parameter'
+require_relative 'body'
 
 # A collection of operations that comprise a single API Action
 class Action
@@ -32,12 +33,11 @@ class Action
     @path_params = dup_params.select { |p| p.in == 'path' }
     path_param_names = @path_params.map(&:name).to_set
     @query_params = dup_params.select { |p| p.in == 'query' && !path_param_names.include?(p.name) }
-    @parameters = @path_params + @query_params
-    @parameters.each { |p| p.spec.node_data['required'] = p.name.in?(required_components) }
-
     @body = operations.map(&:request_body).find(&:present?)
-    @body_required = 'body'.in?(required_components)
-    @body_description = @body&.content&.[]('application/json')&.schema&.description if @body.present?
+    @body = Body.new(@body) if @body.present?
+
+    @parameters = @path_params + @query_params + [@body].compact
+    @parameters.each { |p| p.spec.node_data['required'] = p.name.in?(required_components) }
   end
 
   # @return [Set<String>] The names of input components that are required by the action.
@@ -48,5 +48,9 @@ class Action
       set.add('body') if op.request_body&.required?
       set
     end.reduce(&:intersection)
+  end
+
+  def required_params
+    @parameters.select(&:required?)
   end
 end

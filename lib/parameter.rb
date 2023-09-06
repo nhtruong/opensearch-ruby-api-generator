@@ -11,20 +11,21 @@ require_relative 'version'
 
 # Wrapper for Openapi3Parser::Node::Parameter that adds extra info unique to OpenSearch
 class Parameter < Openapi3Parser::Node::Parameter
-  attr_reader :spec, :type, :ruby_type, :is_array, :default, :deprecated
+  attr_reader :spec, :type, :javascript_type, :is_array, :default, :deprecated,
+              :camel_name, :snake_name, :many_names
 
   # @param [Openapi3Parser::Node::Parameter] spec Parameter Spec
   def initialize(spec)
     super(spec.node_data, spec.node_context)
     @spec = spec
-    @type = schema&.[]('x-data-type') || schema&.type
+    @type = @javascript_type = schema&.[]('x-data-type') || schema&.type
     @is_array = schema&.type == 'array'
     @default = schema&.default
     @deprecated = schema&.deprecated? == true
-  end
-
-  def javascript_type
-    @type
+    @camel_name = name.camelcase(:lower)
+    @snake_name = name.underscore
+    @names = [@camel_name, @snake_name].uniq
+    @many_names = @names.size > 1
   end
 
   # @return [any] example value for this parameter
