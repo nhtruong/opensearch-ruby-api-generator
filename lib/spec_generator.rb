@@ -13,6 +13,7 @@ require_relative 'action'
 class SpecGenerator < BaseGenerator
   self.template_file = './templates/spec.mustache'
   attr_reader :action, :http_verb
+
   delegate :namespace, :name, to: :action
 
   # @param [Pathname] output_folder
@@ -53,8 +54,6 @@ class SpecGenerator < BaseGenerator
     action.required_components.map do |component|
       { arg: component,
         others: other_required_components(component) }
-    end.tap do |components|
-      components.last&.update(blank_line: true)
     end
   end
 

@@ -13,7 +13,6 @@ require_relative 'parameter'
 
 # Wrapper for Openapi3Parser::Node::Operation that adds extra info unique to OpenSearch
 class Operation < Openapi3Parser::Node::Operation
-
   attr_reader :url, :http_verb, :group, :action, :namespace,
               :version_added, :version_removed, :version_deprecated, :external_docs
 

@@ -17,7 +17,7 @@ class Parameter < Openapi3Parser::Node::Parameter
   def initialize(spec)
     super(spec.node_data, spec.node_context)
     @spec = spec
-    @type = schema['x-data-type'] || schema&.type
+    @type = schema&.[]('x-data-type') || schema&.type
     @ruby_type = @type.capitalize
     @is_array = schema&.type == 'array'
     @default = schema&.default
