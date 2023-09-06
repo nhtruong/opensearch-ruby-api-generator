@@ -28,13 +28,13 @@ class ApiGenerator
   # @param [Array<String>] actions list of actions in the specified namespace to generate (Default to all actions)
   def generate(gem_folder = '../', version: nil, namespace: nil, actions: nil)
     gem_folder = Pathname gem_folder
-    namespaces = existing_namespaces(gem_folder)
+    # namespaces = existing_namespaces(gem_folder)
     target_actions(version, namespace, actions).each do |action|
-      ActionGenerator.new(gem_folder.join('lib/opensearch/api/actions'), action).generate
-      SpecGenerator.new(gem_folder.join('spec/opensearch/api/actions'), action).generate
-      NamespaceGenerator.new(gem_folder.join('lib/opensearch/api/namespace'), action.namespace).generate(namespaces)
+      ActionGenerator.new(gem_folder, action).generate
+      # SpecGenerator.new(gem_folder.join('spec/opensearch/api/actions'), action).generate
+      # NamespaceGenerator.new(gem_folder.join('lib/opensearch/api/namespace'), action.namespace).generate(namespaces)
     end
-    IndexGenerator.new(gem_folder.join('lib/opensearch'), namespaces).generate
+    # IndexGenerator.new(gem_folder.join('lib/opensearch'), namespaces).generate
   end
 
   private

@@ -1,17 +1,15 @@
-{{{license_header}}}
-{{{generated_code_warning}}}
-
-# frozen_string_literal: true
-
-module OpenSearch
-  module API
-    {{#module_name}}
-    module {{module_name}}
-      {{>action.module}}
-    end
-    {{/module_name}}
-    {{^module_name}}
-    {{>action.module}}
-    {{/module_name}}
-  end
-end
+/**
+ * {{method_description}}
+ * <br/> See Also: {@link {{reference_link}} - {{capitalized_namespace}} - {{method_name}}}
+ *
+ * @memberOf API-{{capitalized_namespace}}
+ *
+ {{#argument_descriptions}}
+ * @param {{{data_type}}} {{name}} {{#deprecated}}DEPRECATED {{/deprecated}}{{#default}}(default: {{default}}){{/default}}{{description}}
+ {{/argument_descriptions}}
+ *
+ * @param {Object} options - Options for {@link Transport#request}
+ * @param {function} callback - Callback that handles errors and response
+ *
+ * @returns {{{double_curly}}}abort: function(), then: function(), catch: function()}|Promise<never>|*}
+ */

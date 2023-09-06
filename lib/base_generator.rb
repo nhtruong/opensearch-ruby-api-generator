@@ -14,8 +14,11 @@ require 'active_support/all'
 class BaseGenerator < Mustache
   self.template_path = './templates'
 
+  attr_reader :double_curly
+
   def initialize(output_folder)
     @output_folder = output_folder
+    @double_curly = '{{'
     super
   end
 

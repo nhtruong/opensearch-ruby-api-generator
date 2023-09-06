@@ -12,34 +12,8 @@ require_relative 'action'
 # Generate an API Action via Mustache
 class ActionGenerator < BaseGenerator
   self.template_file = './templates/action.mustache'
-  attr_reader :module_name, :method_name, :valid_params_constant_name,
+  attr_reader :namespace, :capitalized_namespace, :method_name, :valid_params_constant_name,
               :method_description, :argument_descriptions, :external_docs
-
-  # Actions that use perform_request_simple_ignore404
-  SIMPLE_IGNORE_404 = %w[exists
-                         indices.exists
-                         indices.exists_alias
-                         indices.exists_template
-                         indices.exists_type].to_set.freeze
-
-  # Actions that use perform_request_complex_ignore404
-  COMPLEX_IGNORE_404 = %w[delete
-                          get
-                          indices.flush_synced
-                          indices.delete_template
-                          indices.delete
-                          security.get_role
-                          security.get_user
-                          snapshot.status
-                          snapshot.get
-                          snapshot.get_repository
-                          snapshot.delete_repository
-                          snapshot.delete
-                          update
-                          watcher.delete_watch].to_set.freeze
-
-  # Actions that use perform_request_ping
-  PING = %w[ping].to_set.freeze
 
   # @param [Pathname] output_folder
   # @param [Action] action
@@ -48,7 +22,8 @@ class ActionGenerator < BaseGenerator
     @action = action
     @urls = action.urls.map { |u| u.split('/').select(&:present?) }.uniq
     @external_docs = action.external_docs
-    @module_name = action.namespace&.camelize
+    @namespace = action.namespace
+    @capitalized_namespace = @namespace.titleize.gsub(/\s+/, '')
     @method_name = action.name.underscore
     @valid_params_constant_name = "#{action.name.upcase}_QUERY_PARAMS"
     @method_description = action.description
@@ -103,15 +78,14 @@ class ActionGenerator < BaseGenerator
   private
 
   def output_file
-    create_folder(*[@output_folder, @action.namespace].compact).join("#{@action.name}.rb")
+    create_folder(*[@output_folder, @action.namespace].compact).join("#{@action.name}.js")
   end
 
   def params_desc
     @action.parameters.map do |p|
-      { data_type: p.ruby_type,
-        name: p.name,
-        required: p.required?,
-        description: p.description,
+      { data_type: "{#{p.javascript_type}}",
+        name: p.required? ? "[params.#{p.name}]" : "params.#{p.name}",
+        description: p.description.present? ? " - #{p.description}" : nil,
         default: p.default,
         deprecated: p.deprecated? }
     end
@@ -119,8 +93,8 @@ class ActionGenerator < BaseGenerator
 
   def body_desc
     return unless @action.body.present?
-    { data_type: :Hash,
-      name: :body,
+    { data_type: '{Object}',
+      name: @action.body_required ? '[params.body]' : 'params.body',
       description: @action.body_description,
       required: @action.body_required }
   end
