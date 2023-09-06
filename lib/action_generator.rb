@@ -13,7 +13,7 @@ require_relative 'action'
 class ActionGenerator < BaseGenerator
   self.template_file = './templates/action.mustache'
   attr_reader :namespace, :capitalized_namespace, :method_name, :valid_params_constant_name,
-              :method_description, :argument_descriptions, :external_docs
+              :method_description, :argument_descriptions, :external_docs, :doc_method_name
 
   # @param [Pathname] output_folder
   # @param [Action] action
@@ -28,6 +28,7 @@ class ActionGenerator < BaseGenerator
     @valid_params_constant_name = "#{action.name.upcase}_QUERY_PARAMS"
     @method_description = action.description
     @argument_descriptions = params_desc + [body_desc].compact
+    @doc_method_name = @method_name.titleize
   end
 
   def url_components
