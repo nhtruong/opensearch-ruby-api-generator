@@ -6,4 +6,4 @@ AwesomePrint.irb!
 
 
 generator = ApiGenerator.new './api_specs/opensearch.openapi.json'
-generator.generate '../opensearch-ruby', namespace: 'remote_store'
+generator.generate '/tmp', namespace: 'security'
