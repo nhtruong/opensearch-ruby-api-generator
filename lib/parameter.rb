@@ -12,7 +12,7 @@ require_relative 'version'
 # Wrapper for Openapi3Parser::Node::Parameter that adds extra info unique to OpenSearch
 class Parameter < Openapi3Parser::Node::Parameter
   attr_reader :spec, :type, :javascript_type, :is_array, :default, :deprecated,
-              :camel_name, :snake_name, :many_names
+              :camel_name, :snake_name, :names, :many_names
 
   # @param [Openapi3Parser::Node::Parameter] spec Parameter Spec
   def initialize(spec)

@@ -36,28 +36,10 @@ class ActionGenerator < BaseGenerator
   def argument_descriptions
     @action.parameters.map do |p|
       { data_type: "{#{p.javascript_type}}",
-        name: p.required? ? "params.#{p.camel_name}" : "[params.#{p.camel_name}]",
+        name: p.required? ? "params.#{p.snake_name}" : "[params.#{p.snake_name}]",
         description: p.description ? " - #{p.description}" : nil,
         default: p.default,
         deprecated: p.deprecated? }
-    end
-  end
-
-  def url_components
-    @urls.max_by(&:length)
-         .map { |e| e.starts_with?('{') ? "_#{e[/{(.+)}/, 1]}" : "'#{e}'" }
-         .join(', ')
-  end
-
-  def http_verb
-    case @action.http_verbs.sort
-    when %w[get post]
-      'body ? OpenSearch::API::HTTP_POST : OpenSearch::API::HTTP_GET'
-    when %w[post put]
-      diff_param = @urls.map(&:to_set).sort_by(&:size).reverse.reduce(&:difference).first
-      "_#{diff_param[/{(.+)}/, 1]} ? OpenSearch::API::HTTP_PUT : OpenSearch::API::HTTP_POST"
-    else
-      "OpenSearch::API::HTTP_#{@action.http_verbs.first.upcase}"
     end
   end
 
@@ -69,13 +51,33 @@ class ActionGenerator < BaseGenerator
     end.tap { |args| args.last&.[]=('_blank_line', true) }
   end
 
-  def path_params
-    @action.path_params.map { |p| { name: p.name, listify: p.is_array } }
+  def path_param_names
+    @action.path_params.flat_map { |p| p.names.map { |n| { name: n } } }
+  end
+
+  def path_param_encodings
+    @action.path_params.map { |p| { snake_name: p.snake_name, names: p.names.join(', ') } }
            .tap { |args| args.last&.[]=('_blank_line', true) }
   end
 
-  def query_params
-    @action.query_params.map { |p| { name: p.name } }
+  def url_components
+    @urls.max_by(&:length)
+         .map { |e| e.starts_with?('{') ? "#{e[/{(.+)}/, 1]}" : "'#{e}'" }
+         .prepend("''")
+         .join(', ')
+  end
+
+  def http_verb
+    case @action.http_verbs.sort
+    when %w[get post]
+      "body ? 'POST' : 'GET'"
+    when %w[post put]
+      # diff_param = @urls.map(&:to_set).sort_by(&:size).reverse.reduce(&:difference).first
+      # "_#{diff_param[/{(.+)}/, 1]} ? OpenSearch::API::HTTP_PUT : OpenSearch::API::HTTP_POST"
+      "'PUT'"
+    else
+      "'#{@action.http_verbs.first.upcase}'"
+    end
   end
 
   def listify_query_params

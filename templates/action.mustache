@@ -4,6 +4,7 @@
  *
  * @memberOf API-{{camelized_namespace}}
  *
+ * @param {Object} params
  {{#argument_descriptions}}
  * @param {{{data_type}}} {{name}}{{#deprecated}}DEPRECATED {{/deprecated}}{{#default}}(default: {{default}}){{/default}}{{description}}
  {{/argument_descriptions}}
@@ -16,12 +17,25 @@
 {{camelized_namespace}}Api.prototype.{{prototype_name}} = function {{function_name}}(params, options, callback) {
   {{#required_params}}
   if (params.{{camel_name}} == null{{#has_snake_name}} && params.{{snake_name}} == null{{/has_snake_name}}) {
-    const err = new this[kConfigurationError]('Missing required parameter: {{camel_name}}');
+    const err = new this[kConfigurationError]('Missing required parameter: {{snake_name}}');
     return handleError(err, callback);
   }
   {{#_blank_line}}
 
   {{/_blank_line}}
   {{/required_params}}
-  let { method, body, {{#path_params}}{{/path_params}} ...querystring } = params;
+  let { method, body, {{#path_param_names}}{{name}}, {{/path_param_names}}...querystring } = params;
+
+  {{#path_param_encodings}}
+  {{snake_name}} = encodePathParam({{names}});
+  {{#_blank_line}}
+
+  {{/_blank_line}}
+  {{/path_param_encodings}}
+  method = method || {{{http_verb}}};
+  path = [{{{url_components}}}].filter((c) => c != null).join('/');
+  body = body || '';
+  querystring = snakeCaseKeys(acceptedQuerystring, snakeCase, querystring);
+
+  return this.transport.request({ method, path, body, querystring }, options, callback);
 };
