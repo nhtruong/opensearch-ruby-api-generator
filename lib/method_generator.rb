@@ -9,9 +9,9 @@
 require_relative 'base_generator'
 require_relative 'action'
 
-# Generate an API Action via Mustache
-class ActionGenerator < BaseGenerator
-  self.template_file = './templates/action.mustache'
+# Generate an API Method via Mustache
+class MethodGenerator < BaseGenerator
+  self.template_file = './templates/method.mustache'
   attr_reader :namespace, :doc_namespace, :camelized_namespace, :function_name, :prototype_name,
               :valid_params_constant_name,
               :method_description, :external_docs, :doc_method_name

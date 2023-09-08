@@ -32,8 +32,8 @@
 
   {{/_blank_line}}
   {{/path_param_encodings}}
+  let path = [{{{url_components}}}].filter((c) => c != null).join('/');
   method = method || {{{http_verb}}};
-  path = [{{{url_components}}}].filter((c) => c != null).join('/');
   body = body || '';
   querystring = snakeCaseKeys(acceptedQuerystring, snakeCase, querystring);
 

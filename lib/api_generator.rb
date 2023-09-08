@@ -8,7 +8,7 @@
 
 require 'openapi3_parser'
 require_relative 'action'
-require_relative 'action_generator'
+require_relative 'module_generator'
 require_relative 'spec_generator'
 require_relative 'namespace_generator'
 require_relative 'index_generator'
@@ -29,8 +29,8 @@ class ApiGenerator
   def generate(gem_folder = '../', version: nil, namespace: nil, actions: nil)
     gem_folder = Pathname gem_folder
     # namespaces = existing_namespaces(gem_folder)
-    target_actions(version, namespace, actions).each do |action|
-      ActionGenerator.new(gem_folder, action).generate
+    target_actions(version, namespace, actions).group_by(&:namespace).each do |namespace, actions|
+      ModuleGenerator.new(gem_folder, namespace, actions).generate
       # SpecGenerator.new(gem_folder.join('spec/opensearch/api/actions'), action).generate
       # NamespaceGenerator.new(gem_folder.join('lib/opensearch/api/namespace'), action.namespace).generate(namespaces)
     end
