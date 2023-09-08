@@ -25,13 +25,21 @@ class ModuleGenerator < BaseGenerator
   end
 
   def query_name_mapping
-    @actions.flat_map(&:query_params).uniq(&:name).map { |p| { camel_name: p.camel_name, snake_name: p.snake_name } }
+    @actions.flat_map(&:query_params).uniq(&:name).sort_by(&:name)
+            .map { |p| { camel_name: p.camel_name, snake_name: p.snake_name } }
+            .reject { |p| p[:camel_name] == p[:snake_name] }
   end
 
   def method_definitions
     @actions.sort_by(&:name).map do |action|
       MethodGenerator.new(@output_folder, action).render
     end.join("\n\n")
+  end
+
+  def method_aliases
+    @actions.map(&:name).sort.map do |action_name|
+      { camel_name: action_name.camelcase(:lower), snake_name: action_name.underscore }
+    end.reject { |p| p[:camel_name] == p[:snake_name] }
   end
 
   private

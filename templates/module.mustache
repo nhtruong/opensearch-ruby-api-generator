@@ -41,4 +41,20 @@ const snakeCase = {
  {{/query_name_mapping}}
 };
 
-// ############################################################################################################
+function {{camelized_namespace}}Api(transport, ConfigurationError) {
+  this.transport = transport;
+  this[kConfigurationError] = ConfigurationError;
+}
+
+{{{method_definitions}}}
+
+Object.defineProperties(IndicesApi.prototype, {
+  {{#method_aliases}}
+  {{snake_name}}: {
+    get() {
+      return this.{{camel_name}};
+    },
+  },
+  {{/method_aliases}}
+});
+module.exports = {{camelized_namespace}}Api;
