@@ -35,7 +35,7 @@
   let path = [{{{url_components}}}].filter((c) => c != null).join('/');
   method = method || {{{http_verb}}};
   body = body || '';
-  querystring = snakeCaseKeys(acceptedQuerystring, snakeCase, querystring);
+  querystring = snakeCaseKeys(null, snakeCase, querystring);
 
   return this.transport.request({ method, path, body, querystring }, options, callback);
 };
