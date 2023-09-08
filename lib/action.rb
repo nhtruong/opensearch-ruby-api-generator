@@ -30,9 +30,9 @@ class Action
     @external_docs = nil if @external_docs == 'https://opensearch.org/docs/latest'
 
     dup_params = operations.flat_map(&:parameters)
-    @path_params = dup_params.select { |p| p.in == 'path' }
+    @path_params = dup_params.select { |p| p.in == 'path' }.uniq(&:name)
     path_param_names = @path_params.map(&:name).to_set
-    @query_params = dup_params.select { |p| p.in == 'query' && !path_param_names.include?(p.name) }
+    @query_params = dup_params.select { |p| p.in == 'query' && !path_param_names.include?(p.name) }.uniq(&:name)
     @body = operations.map(&:request_body).find(&:present?)
     @body = Body.new(@body) if @body.present?
 

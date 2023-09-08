@@ -28,7 +28,6 @@ class ActionGenerator < BaseGenerator
     @doc_namespace = @namespace.titleize.gsub(/\s+/, '')
     @prototype_name = action.name.camelcase(:lower)
     @function_name = "#{@namespace.camelcase(:lower)}#{action.name.camelcase}Api"
-    @valid_params_constant_name = "#{action.name.upcase}_QUERY_PARAMS"
     @method_description = action.description
     @doc_method_name = @prototype_name&.titleize
   end
@@ -78,19 +77,6 @@ class ActionGenerator < BaseGenerator
     else
       "'#{@action.http_verbs.first.upcase}'"
     end
-  end
-
-  def listify_query_params
-    @action.query_params.select(&:is_array).map { |p| { name: p.name } }
-           .tap { |args| args.first&.[]=('_blank_line', true) }
-  end
-
-  def perform_request
-    args = 'method, url, params, body, headers'
-    return "perform_request_simple_ignore404(#{args})" if SIMPLE_IGNORE_404.include?(@action.group)
-    return "perform_request_complex_ignore404(#{args}, arguments)" if COMPLEX_IGNORE_404.include?(@action.group)
-    return "perform_request_ping(#{args})" if PING.include?(@action.group)
-    "perform_request(#{args}).body"
   end
 
   private
