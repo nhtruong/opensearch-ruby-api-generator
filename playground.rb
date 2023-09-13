@@ -6,4 +6,4 @@ AwesomePrint.irb!
 
 
 generator = ApiGenerator.new './api_specs/opensearch.openapi.json'
-generator.generate './tmp', namespace: 'indices'
+generator.generate '../../IdeaProjects/opensearch-js', namespace: 'security'

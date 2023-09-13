@@ -29,8 +29,9 @@ class ApiGenerator
   def generate(gem_folder = '../', version: nil, namespace: nil, actions: nil)
     gem_folder = Pathname gem_folder
     # namespaces = existing_namespaces(gem_folder)
+    module_folder = gem_folder / 'api/api'
     target_actions(version, namespace, actions).group_by(&:namespace).each do |namespace, actions|
-      ModuleGenerator.new(gem_folder, namespace, actions).generate
+      ModuleGenerator.new(module_folder, namespace, actions).generate
       # SpecGenerator.new(gem_folder.join('spec/opensearch/api/actions'), action).generate
       # NamespaceGenerator.new(gem_folder.join('lib/opensearch/api/namespace'), action.namespace).generate(namespaces)
     end

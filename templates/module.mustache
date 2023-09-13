@@ -48,7 +48,7 @@ function {{camelized_namespace}}Api(transport, ConfigurationError) {
 
 {{{method_definitions}}}
 
-Object.defineProperties(IndicesApi.prototype, {
+Object.defineProperties({{camelized_namespace}}Api.prototype, {
   {{#method_aliases}}
   {{snake_name}}: {
     get() {
