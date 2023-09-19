@@ -34,7 +34,7 @@
 /* eslint camelcase: 0 */
 /* eslint no-unused-vars: 0 */
 
-const { handleError, snakeCaseKeys, encodePathParam, kConfigurationError } = require('../utils');
+const { handleError, snakeCaseKeys, encodePathParam, normalizeArguments, kConfigurationError } = require('../utils');
 const snakeCase = {
  {{#query_name_mapping}}
    {{camel_name}}: '{{snake_name}}',

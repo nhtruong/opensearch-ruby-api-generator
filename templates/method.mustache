@@ -15,6 +15,8 @@
  * @returns {{{double_curly}}}abort: function(), then: function(), catch: function()}|Promise<never>|*}
  */
 {{camelized_namespace}}Api.prototype.{{prototype_name}} = function {{function_name}}(params, options, callback) {
+  [params, options, callback] = normalizeArguments(params, options, callback);
+
   {{#required_params}}
   if (params.{{camel_name}} == null{{#has_snake_name}} && params.{{snake_name}} == null{{/has_snake_name}}) {
     const err = new this[kConfigurationError]('Missing required parameter: {{snake_name}}');
