@@ -9,6 +9,7 @@
 require 'openapi3_parser'
 require_relative 'action'
 require_relative 'module_generator'
+require_relative 'prototype_generator'
 require_relative 'spec_generator'
 require_relative 'namespace_generator'
 require_relative 'index_generator'
@@ -32,6 +33,7 @@ class ApiGenerator
     module_folder = gem_folder / 'api/api'
     target_actions(version, namespace, actions).group_by(&:namespace).each do |namespace, actions|
       ModuleGenerator.new(module_folder, namespace, actions).generate
+      puts PrototypeGenerator.new(module_folder, namespace, actions).render
       # SpecGenerator.new(gem_folder.join('spec/opensearch/api/actions'), action).generate
       # NamespaceGenerator.new(gem_folder.join('lib/opensearch/api/namespace'), action.namespace).generate(namespaces)
     end

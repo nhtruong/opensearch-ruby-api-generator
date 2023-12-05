@@ -1,0 +1,32 @@
+{{#optional}}
+  {{function_name}}<TContext = unknown>(
+    params?: TODO,
+    options?: TransportRequestOptions
+  ): TransportRequestPromise<ApiResponse<TODO, TContext>>;
+  {{function_name}}<TContext = unknown>(
+    callback: callbackFn<TODO, TContext>
+  ): TransportRequestCallback;
+  {{function_name}}<TContext = unknown>(
+    params: TODO,
+    callback: callbackFn<TODO, TContext>
+  ): TransportRequestCallback;
+  {{function_name}}<TContext = unknown>(
+    params: TODO,
+    options: TransportRequestOptions,
+    callback: callbackFn<TODO, TContext>
+  ): TransportRequestCallback;
+{{/optional}}{{^optinal}}
+  {{function_name}}<TContext = unknown>(
+  params: TODO,
+  options?: TransportRequestOptions
+  ): TransportRequestPromise<ApiResponse<TODO, TContext>>;
+  {{function_name}}<TContext = unknown>(
+  params: TODO,
+  callback: callbackFn<TODO, TContext>
+  ): TransportRequestCallback;
+  {{function_name}}<TContext = unknown>(
+  params: TODO,
+  options: TransportRequestOptions,
+  callback: callbackFn<TODO, TContext>
+  ): TransportRequestCallback;
+{{/optinal}}
